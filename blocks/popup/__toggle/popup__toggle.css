@@ -1,0 +1,25 @@
+.popup__toggle {
+  border: 0;
+  position: absolute;
+  top: -37px;
+  right: -37px;
+  cursor: pointer;
+  transition: opacity .4s;
+  background-image: url(./images/Close-Icon.png);
+  background-position: center;
+  width: 32px;
+  height: 32px;
+}
+
+@media screen and (max-width: 520px) {
+  .popup__toggle {
+    top: -36px;
+    right: 0;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.popup__toggle:hover {
+  opacity: .6;
+}

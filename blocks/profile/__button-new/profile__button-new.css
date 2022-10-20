@@ -1,0 +1,21 @@
+.profile__button-new {
+  box-shadow: none;
+  padding: 0;
+  width: 150px;
+  height: 50px;
+  background-color: black;
+  border-color: #fff;
+  cursor: pointer;
+  border-style: solid;
+  transition: opacity .3s;
+}
+
+.profile__button-new:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 715px) {
+  .profile__button-new {
+    width: 282px;
+  }
+}

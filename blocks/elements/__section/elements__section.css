@@ -1,0 +1,5 @@
+.elements__section {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px 21px 32px 15px;
+}

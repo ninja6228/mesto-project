@@ -1,0 +1,22 @@
+.profile__info {
+  display: grid;
+  grid-template-areas:
+    "name button"
+    "activity activity";
+  grid-template-columns: 296px 24px;
+  gap: 18px 16px;
+  align-items: center;
+}
+
+@media screen and (max-width: 715px) {
+  .profile__info {
+    gap: 14px 10px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .profile__info {
+    grid-template-columns: 190px 20px;
+    padding-left: 28px;
+  }
+}

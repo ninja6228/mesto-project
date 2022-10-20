@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="HTML5, CSS">
+  <meta name="description" content="Страница Mesto Russia">
+  <meta name="author" content="Назаров Алексей">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Mesto Russia</title>
+</head>
+
+<body>
+  <div class="page">
+    <header class="header centralization-block">
+      <img class="header__logo" src="./images/logo_w.svg" alt="Логотип">
+    </header>
+    <main>
+      <section class="profile centralization-block">
+        <div class="profile__info-wrapper">
+          <img class="profile__avatar" src="./images/image.jpg" alt="фото профиля">
+          <div class="profile__info">
+            <p class="profile__name">Жак-Ив Кусто</p>
+            <button class="profile__button-cor"></button>
+            <p class="profile__activity">Исследователь океана</p>
+          </div>
+        </div>
+        <button class="profile__button-new"><img src="./images/cross.png" alt="крестик"></button>
+      </section>
+      <section class="elements centralization-block">
+        <ul class="elements__wrapper">
+          <li class="elements__element">
+            <img class="elements__img" src="./images/Altai.jpg" alt="Природа Алтая">
+            <div class="elements__section">
+              <p class="elements__text">Алтай</p>
+              <button class="elements__button"></button>
+              <!-- ↑ Чтобы поставить лайк добавьте класс elements__button_active-->
+            </div>
+          </li>
+          <li class="elements__element">
+            <img class="elements__img" src="./images/dagestan.jpg" alt="Горы Дагестана">
+            <div class="elements__section">
+              <p class="elements__text">Дагестан</p>
+              <button class="elements__button"></button>
+            </div>
+          </li>
+          <li class="elements__element">
+            <img class="elements__img" src="./images/elbrus.jpg" alt="Гора Эльбрус">
+            <div class="elements__section">
+              <p class="elements__text">Эльбрус</p>
+              <button class="elements__button"></button>
+            </div>
+          </li>
+          <li class="elements__element">
+            <img class="elements__img" src="./images/Karelia.jpg" alt="Каньон в Карелии">
+            <div class="elements__section">
+              <p class="elements__text">Карелия</p>
+              <button class="elements__button"></button>
+            </div>
+          </li>
+          <li class="elements__element">
+            <img class="elements__img" src="./images/samara.jpg" alt="Самара">
+            <div class="elements__section">
+              <p class="elements__text">Самара</p>
+              <button class="elements__button"></button>
+            </div>
+          </li>
+          <li class="elements__element">
+            <img class="elements__img" src="./images/Sochu.jpg" alt="Сочи">
+            <div class="elements__section">
+              <p class="elements__text">Сочи</p>
+              <button class="elements__button"></button>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer class="footer centralization-block">
+      <p class="footer__text">&copy; 2020 Mesto Russia</p>
+    </footer>
+
+    <div class="popup">
+      <!-- ↑ Чтобы запустить окно добавьте класс popup_open-->
+      <div class="popup__body">
+        <div class="popup__toggle"></div>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <fieldset class="popup__section">
+          <input type="text" class="popup__line" placeholder="Имя" required>
+          <input type="text" class="popup__line" placeholder="О себе" required>
+        </fieldset>
+        <button type="submit" class="popup__button-save">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

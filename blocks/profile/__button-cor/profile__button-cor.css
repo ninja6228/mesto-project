@@ -1,0 +1,25 @@
+.profile__button-cor {
+  grid-area: button;
+  padding: 0;
+  border: none;
+  background-color: black;
+  cursor: pointer;
+  transition: opacity .3s;
+  background-image: url(../../../images/pen.svg);
+  background-position: center;
+  background-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.profile__button-cor:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 715px) {
+  .profile__button-cor {
+    background-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
