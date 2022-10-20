@@ -4,6 +4,6 @@
   background: url(../../../../images/heart_b.png);
 }
 
-.elements__buttom_active:hover {
+.elements__button_active:hover {
   opacity: 1;
 }
