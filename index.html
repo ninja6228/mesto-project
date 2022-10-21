@@ -22,56 +22,56 @@
         <div class="profile__info-wrapper">
           <img class="profile__avatar" src="./images/image.jpg" alt="фото профиля">
           <div class="profile__info">
-            <p class="profile__name">Жак-Ив Кусто</p>
-            <button class="profile__button-cor"></button>
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button type="button" class="profile__button-cor" aria-label="Редактировать профиль"></button>
             <p class="profile__activity">Исследователь океана</p>
           </div>
         </div>
-        <button class="profile__button-new"><img src="./images/cross.png" alt="крестик"></button>
+        <button type="button" class="profile__button-new" aria-label="Создать новый пост"></button>
       </section>
       <section class="elements centralization-block">
         <ul class="elements__wrapper">
           <li class="elements__element">
-            <img class="elements__img" src="./images/Altai.jpg" alt="Природа Алтая">
+            <img class="elements__img" src="./images/altai.jpg" alt="Природа Алтая">
             <div class="elements__section">
-              <p class="elements__text">Алтай</p>
-              <button class="elements__button"></button>
+              <h2 class="elements__text">Алтай</h2>
+              <button type="submit" class="elements__button" aria-label="Отметить понравившиеся"></button>
               <!-- ↑ Чтобы поставить лайк добавьте класс elements__button_active-->
             </div>
           </li>
           <li class="elements__element">
             <img class="elements__img" src="./images/dagestan.jpg" alt="Горы Дагестана">
             <div class="elements__section">
-              <p class="elements__text">Дагестан</p>
-              <button class="elements__button"></button>
+              <h2 class="elements__text">Дагестан</h2>
+              <button type="submit" class="elements__button" aria-label="Отметить понравившиеся"></button>
             </div>
           </li>
           <li class="elements__element">
             <img class="elements__img" src="./images/elbrus.jpg" alt="Гора Эльбрус">
             <div class="elements__section">
-              <p class="elements__text">Эльбрус</p>
-              <button class="elements__button"></button>
+              <h2 class="elements__text">Эльбрус</h2>
+              <button type="submit" class="elements__button" aria-label="Отметить понравившиеся"></button>
             </div>
           </li>
           <li class="elements__element">
-            <img class="elements__img" src="./images/Karelia.jpg" alt="Каньон в Карелии">
+            <img class="elements__img" src="./images/karelia.jpg" alt="Каньон в Карелии">
             <div class="elements__section">
-              <p class="elements__text">Карелия</p>
-              <button class="elements__button"></button>
+              <h2 class="elements__text">Карелия</h2>
+              <button type="submit" class="elements__button" aria-label="Отметить понравившиеся"></button>
             </div>
           </li>
           <li class="elements__element">
             <img class="elements__img" src="./images/samara.jpg" alt="Самара">
             <div class="elements__section">
-              <p class="elements__text">Самара</p>
-              <button class="elements__button"></button>
+              <h2 class="elements__text">Самара</h2>
+              <button type="submit" class="elements__button" aria-label="Отметить понравившиеся"></button>
             </div>
           </li>
           <li class="elements__element">
-            <img class="elements__img" src="./images/Sochu.jpg" alt="Сочи">
+            <img class="elements__img" src="./images/sochu.jpg" alt="Сочи">
             <div class="elements__section">
-              <p class="elements__text">Сочи</p>
-              <button class="elements__button"></button>
+              <h2 class="elements__text">Сочи</h2>
+              <button type="submit" class="elements__button" aria-label="Отметить понравившиеся"></button>
             </div>
           </li>
         </ul>
@@ -82,15 +82,17 @@
     </footer>
 
     <div class="popup">
-      <!-- ↑ Чтобы запустить окно добавьте класс popup_open-->
-      <div class="popup__body">
-        <div class="popup__toggle"></div>
+      <!-- ↑ Чтобы запустить окно добавьте класс popup_opened-->
+      <div class="popup__container">
+        <button type="button" class="popup__toggle" aria-label="Закрыть окно"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <fieldset class="popup__section">
-          <input type="text" class="popup__line" placeholder="Имя" required>
-          <input type="text" class="popup__line" placeholder="О себе" required>
-        </fieldset>
-        <button type="submit" class="popup__button-save">Сохранить</button>
+        <form action="#">
+          <fieldset class="popup__section">
+            <input name="name" type="text" class="popup__line" placeholder="Имя" required>
+            <input name="info" type="text" class="popup__line" placeholder="О себе" required>
+          </fieldset>
+          <button type="submit" class="popup__button-save">Сохранить</button>
+        </form>
       </div>
     </div>
   </div>

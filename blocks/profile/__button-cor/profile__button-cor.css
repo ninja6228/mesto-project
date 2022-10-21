@@ -2,7 +2,7 @@
   grid-area: button;
   padding: 0;
   border: none;
-  background-color: black;
+  background-color: Transparent;
   cursor: pointer;
   transition: opacity .3s;
   background-image: url(../../../images/pen.svg);

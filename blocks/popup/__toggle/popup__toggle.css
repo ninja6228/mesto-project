@@ -1,12 +1,15 @@
 .popup__toggle {
-  border: 0;
   position: absolute;
-  top: -37px;
-  right: -37px;
+  top: -40px;
+  right: -40px;
   cursor: pointer;
   transition: opacity .4s;
-  background-image: url(../../../images/Close-Icon.png);
+  padding: 0;
+  background-color: Transparent;
+  border: none;
+  background-image: url(../../../images/close-icon.svg);
   background-position: center;
+  background-size: 32px;
   width: 32px;
   height: 32px;
 }
@@ -17,6 +20,7 @@
     right: 0;
     width: 20px;
     height: 20px;
+    background-size: 20px;
   }
 }
 
