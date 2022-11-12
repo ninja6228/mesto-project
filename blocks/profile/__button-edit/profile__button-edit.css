@@ -16,8 +16,8 @@
   opacity: 0.6;
 }
 
-@media screen and (max-width: 715px) {
-  .profile__button-cor {
+@media screen and (max-width: 400px) {
+  .profile__button-edit {
     background-size: 18px;
     width: 18px;
     height: 18px;
