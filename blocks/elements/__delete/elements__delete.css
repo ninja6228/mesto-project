@@ -5,7 +5,8 @@
     top: 20px;
     right: 20px;
     border: none;
-    background: url(../../../images/deletion.svg);
+    background-image: url(../../../images/deletion.svg);
+    background-position: center;
     transition: all 0.4s ease-in-out;
 }
 
