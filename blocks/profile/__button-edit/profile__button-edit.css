@@ -1,4 +1,4 @@
-.profile__button-cor {
+.profile__button-edit {
   grid-area: button;
   padding: 0;
   border: none;
@@ -12,7 +12,7 @@
   height: 24px;
 }
 
-.profile__button-cor:hover {
+.profile__button-edit:hover {
   opacity: 0.6;
 }
 

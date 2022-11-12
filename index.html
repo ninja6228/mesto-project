@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="keywords" content="HTML5, CSS">
+  <meta name="keywords" content="HTML5, CSS, js">
   <meta name="description" content="Страница Mesto Russia">
   <meta name="author" content="Назаров Алексей">
   <link rel="stylesheet" href="./pages/index.css">
@@ -20,60 +20,19 @@
     <main>
       <section class="profile centralization-block">
         <div class="profile__info-wrapper">
-          <img class="profile__avatar" src="./images/image.jpg" alt="фото профиля">
+          <img class="profile__avatar"
+            src="https://images.unsplash.com/photo-1667652222786-896eff9ca76c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1138&q=80"
+            alt="фото профиля">
           <div class="profile__info">
-            <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button type="button" class="profile__button-cor" aria-label="Редактировать профиль"></button>
-            <p class="profile__activity">Исследователь океана</p>
+            <h1 class="profile__name">Алексей</h1>
+            <button type="button" class="profile__button-edit" aria-label="Редактировать профиль"></button>
+            <p class="profile__activity">Студент WEb+</p>
           </div>
         </div>
         <button type="button" class="profile__button-new" aria-label="Создать новый пост"></button>
       </section>
       <section class="elements centralization-block">
-        <ul class="elements__wrapper">
-          <li class="elements__element">
-            <img class="elements__img" src="./images/altai-territory.jpg" alt="Природа Алтая">
-            <div class="elements__section">
-              <h2 class="elements__text">Алтай</h2>
-              <button type="button" class="elements__button" aria-label="Отметить понравившиеся"></button>
-              <!-- ↑ Чтобы поставить лайк добавьте класс elements__button_active-->
-            </div>
-          </li>
-          <li class="elements__element">
-            <img class="elements__img" src="./images/dagestan.jpg" alt="Горы Дагестана">
-            <div class="elements__section">
-              <h2 class="elements__text">Дагестан</h2>
-              <button type="button" class="elements__button" aria-label="Отметить понравившиеся"></button>
-            </div>
-          </li>
-          <li class="elements__element">
-            <img class="elements__img" src="./images/elbrus.jpg" alt="Гора Эльбрус">
-            <div class="elements__section">
-              <h2 class="elements__text">Эльбрус</h2>
-              <button type="button" class="elements__button" aria-label="Отметить понравившиеся"></button>
-            </div>
-          </li>
-          <li class="elements__element">
-            <img class="elements__img" src="./images/marble-canyon.jpg" alt="Каньон в Карелии">
-            <div class="elements__section">
-              <h2 class="elements__text">Карелия</h2>
-              <button type="button" class="elements__button" aria-label="Отметить понравившиеся"></button>
-            </div>
-          </li>
-          <li class="elements__element">
-            <img class="elements__img" src="./images/samara.jpg" alt="Самара">
-            <div class="elements__section">
-              <h2 class="elements__text">Самара</h2>
-              <button type="button" class="elements__button" aria-label="Отметить понравившиеся"></button>
-            </div>
-          </li>
-          <li class="elements__element">
-            <img class="elements__img" src="./images/krasnaya-polyana.jpg" alt="Сочи">
-            <div class="elements__section">
-              <h2 class="elements__text">Сочи</h2>
-              <button type="button" class="elements__button" aria-label="Отметить понравившиеся"></button>
-            </div>
-          </li>
+        <ul class="elements__wrapper"> 
         </ul>
       </section>
     </main>
@@ -81,21 +40,56 @@
       <p class="footer__text">&copy; 2020 Mesto Russia</p>
     </footer>
 
-    <div class="popup">
-      <!-- ↑ Чтобы запустить окно добавьте класс popup_opened-->
+    <div class="popup popup_type_user">
       <div class="popup__container">
         <button type="button" class="popup__toggle" aria-label="Закрыть окно"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form action="#" name="user-info">
+        <form class="form-user" action="#" name="info-user">
           <fieldset class="popup__section">
-            <input name="name" type="text" class="popup__line" placeholder="Имя" required>
-            <input name="info" type="text" class="popup__line" placeholder="О себе" required>
+            <input name="name" type="text" class="popup__line popup__line_name" placeholder="Имя" required>
+            <input name="info" type="text" class="popup__line popup__line_info" placeholder="О себе" required> 
           </fieldset>
-          <button type="submit" class="popup__button-save">Сохранить</button>
+          <button type="submit" class="popup__button">Сохранить</button>
         </form>
       </div>
     </div>
+
+    <div class="popup popup_type_element">
+      <div class="popup__container">
+        <button type="button" class="popup__toggle" aria-label="Закрыть окно"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form class="form-element" action="#" name="info-element">
+          <fieldset class="popup__section">
+            <input name="title" type="text" class="popup__line popup__line_title" placeholder="Название" required  maxlength="50">
+            <input name="link" type="url" class="popup__line popup__line_link" placeholder="Ссылка на картинку" required>
+          </fieldset> 
+          <button type="submit" class="popup__button">Создать</button>
+        </form>
+      </div>
+    </div>  
+
+    <div class="popup popup_type_img">
+      <div class="popup__wrapper">
+        <figure class="popup__figure">
+          <img class="popup__img" src="#" alt="фотография">
+          <figcaption class="popup__description"></figcaption>
+        </figure>
+        <button type="button" class="popup__toggle popup__toggle_img" aria-label="Закрыть окно"></button>
+    </div>
   </div>
+
+  <template id="elements-template">
+    <li class="elements__element">
+      <button class="elements__delete" aria-label="удалить карточку"></button>
+      <img class="elements__img" src="#" alt="фотография">
+      <div class="elements__section">
+        <h2 class="elements__text"></h2>
+        <button type="button" class="elements__button" aria-label="Отметить понравившиеся"></button>
+      </div>
+    </li>
+  </template>
+
+  <script src="./script/script.js"></script>
 </body>
 
 </html>

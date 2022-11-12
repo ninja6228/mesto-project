@@ -1,7 +1,7 @@
 .elements__button_active {
   width: 22px;
   height: 19px;
-  background: url(../../../../images/heart-black.svg);
+  background: url(../../../../images/heart-red.svg);
 }
 
 .elements__button_active:hover {
