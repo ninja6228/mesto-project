@@ -8,7 +8,7 @@ const buttonCloseUser = popupUser.querySelector('.popup__toggle');
 const popupElement = document.querySelector('.popup_type_element');
 const buttonCloseElement = popupElement.querySelector('.popup__toggle');
 const formAddCard = popupElement.querySelector('.form-element');
-const inputCardTitle = popupElement.querySelector('.popup__line_title'); 
+const inputCardTitle = popupElement.querySelector('.popup__line_title');
 const inputCardLink = popupElement.querySelector('.popup__line_link');
 // секция профиль 
 const profile = document.querySelector('.profile')
@@ -61,7 +61,7 @@ function createCard(titleValue, linkValue) {
     pictureImg.alt = `фотография ${titleValue}`;
     openPopup(popupImg);
   });
-  return elementsElement
+  return elementsElement;
 }
 // функция добавления карточки в DOM
 function addCard(card) {
