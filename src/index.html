@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="HTML5, CSS, js">
+  <meta name="description" content="Страница Mesto Russia">
+  <meta name="author" content="Назаров Алексей">
+  <title>Mesto Russia</title>
+</head>
+
+<body>
+  <div class="page">
+    <header class="header centralization-block">
+      <img class="header__logo" src="<%=require('./images/logo_w.svg')%>" alt="Логотип">
+    </header>
+    <main>
+      <section class="profile centralization-block">
+        <div class="profile__info-wrapper">
+          <img class="profile__avatar"
+            src="https://images.unsplash.com/photo-1667652222786-896eff9ca76c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1138&q=80"
+            alt="фото профиля">
+          <div class="profile__info">
+            <h1 class="profile__name">Алексей</h1>
+            <button type="button" class="profile__button-edit" aria-label="Редактировать профиль"></button>
+            <p class="profile__activity">Студент WEb</p>
+          </div>
+        </div>
+        <button type="button" class="profile__button-new" aria-label="Создать новый пост"></button>
+      </section>
+      <section class="elements centralization-block">
+        <ul class="elements__wrapper">
+        </ul>
+      </section>
+    </main>
+    <footer class="footer centralization-block">
+      <p class="footer__text">&copy; 2020 Mesto Russia</p>
+    </footer>
+
+    <div class="popup popup_type_user">
+      <div class="popup__container">
+        <button type="button" class="popup__toggle" aria-label="Закрыть окно"></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="form form-user" action="#" name="info-user" novalidate>
+          <fieldset class="popup__section">
+            <label class="popup__field">
+              <input id="name-input" name="name" type="text" class="popup__line popup__line_name" placeholder="Имя"
+                minlength="2" maxlength="40" pattern="^[А-Яа-яЁёa-zA-Z\-\s]+$"
+                data-text-error-pattern="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+                required>
+              <span class="name-input-error popup__line-error"></span>
+            </label>
+            <label class="popup__field">
+              <input id="info-input" name="info" type="text" class="popup__line popup__line_info" placeholder="О себе"
+                minlength="2" ma xlength="200" pattern="^[А-Яа-яa-zA-Z\-\s]+$"
+                data-text-error-pattern="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+                required>
+              <span class="info-input-error popup__line-error"></span>
+            </label>
+          </fieldset>
+          <button type="submit" class="popup__button">Сохранить</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup_type_element">
+      <div class="popup__container">
+        <button type="button" class="popup__toggle" aria-label="Закрыть окно"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form class="form form-element" action="#" name="info-element" novalidate>
+          <fieldset class="popup__section">
+            <label class="popup__field">
+              <input id="title-input" name="title" type="text" class="popup__line popup__line_title"
+                placeholder="Название" minlength="2" maxlength="30" pattern="^[А-Яа-яa-zA-Z\-\s]+$"
+                data-text-error-pattern="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
+                required>
+              <span class="title-input-error popup__line-error"></span>
+            </label>
+            <label class="popup__field">
+              <input id="link-input" name="link" type="url" class="popup__line popup__line_link"
+                placeholder="Ссылка на картинку" required>
+              <span class="link-input-error popup__line-error"></span>
+            </label>
+          </fieldset>
+          <button type="submit" class="popup__button">Создать</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup_type_img">
+      <div class="popup__wrapper">
+        <figure class="popup__figure">
+          <img class="popup__img" src="#" alt="#">
+          <figcaption class="popup__description"></figcaption>
+        </figure>
+        <button type="button" class="popup__toggle popup__toggle_img" aria-label="Закрыть окно"></button>
+      </div>
+    </div>
+
+    <template id="elements-template">
+      <li class="elements__element">
+        <button class="elements__delete" aria-label="удалить карточку"></button>
+        <img class="elements__img" src="#" alt="#">
+        <div class="elements__section">
+          <h2 class="elements__text"></h2>
+          <button type="button" class="elements__button" aria-label="Отметить понравившиеся"></button>
+        </div>
+      </li>
+    </template>
+  </div>
+</body>
+
+</html>
