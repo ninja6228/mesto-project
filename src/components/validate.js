@@ -28,22 +28,19 @@ const isValid = (formElement, inputElement, parameter) => {
   }
 };
 
-// вешает слушатель всем полям
+// вешает слушатель инпут всем полям, с активной проверкой ввода данных и переключением сосотояния кнопки 
 const setEventListeners = (formElement, parameter) => {
   const inputList = Array.from(formElement.querySelectorAll(parameter.inputSelector));
   const buttonElement = formElement.querySelector(parameter.submitButtonSelector);
-  
   inputList.forEach(inputElement => {
     inputElement.addEventListener('input', () => {
       isValid(formElement, inputElement, parameter);
       toggleButtonState(inputList, buttonElement, parameter);
     });
-    isValid(formElement, inputElement, parameter);
-    toggleButtonState(inputList, buttonElement, parameter);
   });
 };
 
-// валидность полей 
+// проверка валидности полей 
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
@@ -59,6 +56,17 @@ const toggleButtonState = (inputList, buttonElement, parameter) => {
     buttonElement.disabled = false;
     buttonElement.classList.remove(parameter.submitButtonInactive);
   }
+};
+
+// функция для провеки валидности полей, скрытием ошибки и переключением состояния кнопки до ввода данных в поле 
+export const validationStaticInput = (formElement, parameter) => {
+  const inputList = Array.from(formElement.querySelectorAll(parameter.inputSelector));
+  const buttonElement = formElement.querySelector(parameter.submitButtonSelector);
+  inputList.forEach(inputElement => {
+    isValid(formElement, inputElement, parameter);
+    hideInputError(formElement, inputElement, parameter);
+    toggleButtonState(inputList, buttonElement, parameter); 
+  });
 };
 
 // функция включения валидации

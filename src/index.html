@@ -46,14 +46,19 @@
         <form class="form form-user" action="#" name="info-user" novalidate>
           <fieldset class="popup__section">
             <label class="popup__field">
-              <input id="name-input" name="name" type="text" class="popup__line popup__line_name" placeholder="Имя"
-                minlength="2" maxlength="40" pattern="^[А-Яа-яЁёa-zA-Z\-\s]+$"
+              <input id="name-input" 
+                name="name"   
+                type="text" 
+                class="popup__line popup__line_name popup__line-user" 
+                placeholder="Имя"
+                minlength="2" maxlength="40" 
+                pattern="^[А-Яа-яЁёa-zA-Z\-\s]+$"
                 data-text-error-pattern="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
                 required>
               <span class="name-input-error popup__line-error"></span>
             </label>
             <label class="popup__field">
-              <input id="info-input" name="info" type="text" class="popup__line popup__line_info" placeholder="О себе"
+              <input id="info-input" name="info" type="text" class="popup__line popup__line_info popup__line-user" placeholder="О себе"
                 minlength="2" ma xlength="200" pattern="^[А-Яа-яa-zA-Z\-\s]+$"
                 data-text-error-pattern="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
                 required>
@@ -71,14 +76,14 @@
         <form class="form form-element" action="#" name="info-element" novalidate>
           <fieldset class="popup__section">
             <label class="popup__field">
-              <input id="title-input" name="title" type="text" class="popup__line popup__line_title"
+              <input id="title-input" name="title" type="text" class="popup__line popup__line_title popup__line-element"
                 placeholder="Название" minlength="2" maxlength="30" pattern="^[А-Яа-яa-zA-Z\-\s]+$"
                 data-text-error-pattern="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
                 required>
               <span class="title-input-error popup__line-error"></span>
             </label>
             <label class="popup__field">
-              <input id="link-input" name="link" type="url" class="popup__line popup__line_link"
+              <input id="link-input" name="link" type="url" class="popup__line popup__line_link popup__line-element"
                 placeholder="Ссылка на картинку" required>
               <span class="link-input-error popup__line-error"></span>
             </label>
