@@ -6,9 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="keywords" content="HTML5, CSS, js">
-  <meta name="description" content="Страница Mesto Russia">
+  <meta name="description" content="Страница Mesto">
   <meta name="author" content="Назаров Алексей">
-  <title>Mesto Russia</title>
+  <link rel="icon" type="image/x-icon" href="<%=require('./images/planet.svg')%>">
+  <title>Mesto</title>
 </head>
 
 <body>
@@ -19,13 +20,12 @@
     <main>
       <section class="profile centralization-block">
         <div class="profile__info-wrapper">
-          <img class="profile__avatar"
-            src="https://images.unsplash.com/photo-1667652222786-896eff9ca76c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1138&q=80"
-            alt="фото профиля">
+          <img class="profile__avatar" src='' alt="фото профиля">
+          <button type="button" class="profile__avatar-button"></button>
           <div class="profile__info">
-            <h1 class="profile__name">Алексей</h1>
+            <h1 class="profile__name"></h1>
             <button type="button" class="profile__button-edit" aria-label="Редактировать профиль"></button>
-            <p class="profile__activity">Студент WEb</p>
+            <p class="profile__activity"></p>
           </div>
         </div>
         <button type="button" class="profile__button-new" aria-label="Создать новый пост"></button>
@@ -46,20 +46,15 @@
         <form class="form form-user" action="#" name="info-user" novalidate>
           <fieldset class="popup__section">
             <label class="popup__field">
-              <input id="name-input" 
-                name="name"   
-                type="text" 
-                class="popup__line popup__line_name popup__line-user" 
-                placeholder="Имя"
-                minlength="2" maxlength="40" 
-                pattern="^[А-Яа-яЁёa-zA-Z\-\s]+$"
+              <input id="name-input" name="name" type="text" class="popup__line popup__line_name popup__line-user"
+                placeholder="Имя" minlength="2" maxlength="40" pattern="^[А-Яа-яЁёa-zA-Z\-\s]+$"
                 data-text-error-pattern="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
                 required>
               <span class="name-input-error popup__line-error"></span>
             </label>
             <label class="popup__field">
-              <input id="info-input" name="info" type="text" class="popup__line popup__line_info popup__line-user" placeholder="О себе"
-                minlength="2" ma xlength="200" pattern="^[А-Яа-яa-zA-Z\-\s]+$"
+              <input id="info-input" name="info" type="text" class="popup__line popup__line_info popup__line-user"
+                placeholder="О себе" minlength="2" ma xlength="200" pattern="^[А-Яа-яЁёa-zA-Z\-\s]+$"
                 data-text-error-pattern="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
                 required>
               <span class="info-input-error popup__line-error"></span>
@@ -77,7 +72,7 @@
           <fieldset class="popup__section">
             <label class="popup__field">
               <input id="title-input" name="title" type="text" class="popup__line popup__line_title popup__line-element"
-                placeholder="Название" minlength="2" maxlength="30" pattern="^[А-Яа-яa-zA-Z\-\s]+$"
+                placeholder="Название" minlength="2" maxlength="30" pattern="^[А-Яа-яЁёa-zA-Z\-\s]+$"
                 data-text-error-pattern="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы"
                 required>
               <span class="title-input-error popup__line-error"></span>
@@ -103,13 +98,37 @@
       </div>
     </div>
 
+    <div class="popup popup_type_avatar">
+      <div class="popup__container">
+        <button type="button" class="popup__toggle" aria-label="Закрыть окно"></button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form class="form form-avatar" action="#" name="info-avatar" novalidate>
+          <fieldset class="popup__section">
+            <label class="popup__field">
+              <input 
+              id="avatar-input" 
+              name="link" type="url" 
+              class="popup__line popup__line_avatar popup__line-avatar"
+              placeholder="Ссылка на картинку" 
+              required>
+              <span class="avatar-input-error popup__line-error"></span>
+            </label>
+          </fieldset>
+          <button type="submit" class="popup__button">Создать</button>
+        </form>
+      </div>
+    </div>
+
     <template id="elements-template">
       <li class="elements__element">
         <button class="elements__delete" aria-label="удалить карточку"></button>
         <img class="elements__img" src="#" alt="#">
         <div class="elements__section">
           <h2 class="elements__text"></h2>
-          <button type="button" class="elements__button" aria-label="Отметить понравившиеся"></button>
+          <div class="elements__block-like">
+            <button type="button" class="elements__button" aria-label="Отметить понравившиеся"></button>
+            <span class="elements__counter-like"></span>
+          </div>
         </div>
       </li>
     </template>
