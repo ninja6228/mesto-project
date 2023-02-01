@@ -1,7 +1,7 @@
 import { openPopup } from "./modal.js";
 import { popupImg, titleImg, pictureImg } from "./variables.js";
 import { deletiCardApi, addlikeApi, deletelikeApi } from "./api.js";
-import { userId } from "./index.js";
+
 
 // место добавления новых карточек
 const elementsSection = document.querySelector('.elements__wrapper');
@@ -11,10 +11,10 @@ const elementsTemplate = document.querySelector('#elements-template').content;
 // функция добавления карточки в DOM
 export const addCard = (card) => {
   elementsSection.prepend(card);
-}
+};
 
 //попап для карточки
-const openImgPopup = (element, title, link) => {
+const setOpenCardImageListener = (element, title, link) => {
   element.addEventListener('click', () => {
     titleImg.textContent = title;
     pictureImg.src = link;
@@ -54,7 +54,7 @@ const deletelike = (button, counter, likes, cardId) => {
 };
 
 //функция формерования новой карточки 
-export const createCard = (titleValue, linkValue, likes, idCreator, idCard) => {
+export const createCard = (titleValue, linkValue, likes, idCreator, idCard, userId) => {
   const elementsElement = elementsTemplate.querySelector('.elements__element').cloneNode(true);
   const elementsImg = elementsElement.querySelector('.elements__img');
   const elementsCounterLike = elementsElement.querySelector('.elements__counter-like');
@@ -66,9 +66,9 @@ export const createCard = (titleValue, linkValue, likes, idCreator, idCard) => {
   elementsImg.alt = `фотография ${titleValue}`;
   elementsCounterLike.textContent = likes.length;
   // проверка есть ли лайк 
-  cardLikes.forEach(function (element) {if (element._id === userId) {buttonLike.classList.add('elements__button_active');}});
+  cardLikes.forEach(function (element) { if (element._id === userId) { buttonLike.classList.add('elements__button_active'); } });
   // отоброжение кнопки удалить
-  if (idCreator !== userId) {buttonDelete.remove();}
+  if (idCreator !== userId) { buttonDelete.remove(); }
   // лайк - не лайк
   buttonLike.addEventListener('click', function () {
     if (buttonLike.classList.contains('elements__button_active')) {
@@ -84,7 +84,7 @@ export const createCard = (titleValue, linkValue, likes, idCreator, idCard) => {
       .catch((err) => console.log(err));
   });
   // открытие картинки в карточке
-  openImgPopup(elementsImg, titleValue, linkValue);
+  setOpenCardImageListener(elementsImg, titleValue, linkValue);
 
   return elementsElement;
 }

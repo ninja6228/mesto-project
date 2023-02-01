@@ -18,14 +18,13 @@ const checkAnswer = (result) => {
 // получение с сервера обькта с карточками
 export const apiCards = () => {
   return fetch(`${apiConfig.baseUrl}/cards`, { headers: apiConfig.headers })
-    .then((res) => checkAnswer(res))
-    .catch((err) => console.log(err));
+    .then((res) => checkAnswer(res));
 };
+
 // получение с сервера обьекта с данными пользывателя
 export const apiUser = () => {
   return fetch(`${apiConfig.baseUrl}/users/me`, { headers: apiConfig.headers })
-    .then((res) => checkAnswer(res))
-    .catch((err) => console.log(err));
+    .then((res) => checkAnswer(res));
 };
 
 //передача данных пользывателя на сервер

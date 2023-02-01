@@ -7,15 +7,16 @@ import {
   buttonSaveUser, buttonSaveCard, buttonSaveAvatar
 } from "./variables.js";
 import { addCard, createCard } from "./card.js";
-import { openPopup, closePopup, renderLoadingSave, renderLoadingСreating } from "./modal.js";
+import { openPopup, closePopup, renderButtonText, textButtonSaveLoading, textButtonSaveNoLoading, textButtonСreatLoading, textButtonСreatNoLoading } from "./modal.js";
 import { enableValidation, validationStaticInput } from "./validate.js";
 import { setUserInfo, setAddNewCard, getAppInfo, setUserAvatar } from "./api.js";
+
 
 
 // функция изменения имени и дейтельности через попап
 const submitEditProfileForm = (evt) => {
   evt.preventDefault();
-  renderLoadingSave(true, buttonSaveUser);
+  renderButtonText(buttonSaveUser, textButtonSaveLoading);
   setUserInfo(nameInput.value, jobInput.value)
     .then((user) => {
       profileSet(user);
@@ -23,14 +24,14 @@ const submitEditProfileForm = (evt) => {
     })
     .catch((err) => console.log(err))
     .finally(() => {
-      renderLoadingSave(false, buttonSaveUser);
+      renderButtonText(buttonSaveUser, textButtonSaveNoLoading);
     });
 };
 
 // функция изменения аватарки через модальное окно
 const submitAvatarForm = (evt) => {
   evt.preventDefault();
-  renderLoadingСreating(true, buttonSaveAvatar);
+  renderButtonText(buttonSaveAvatar, textButtonСreatLoading);
   setUserAvatar(popupLineAvatar.value)
     .then((user) => {
       profileSet(user);
@@ -38,22 +39,22 @@ const submitAvatarForm = (evt) => {
     })
     .catch((err) => console.log(err))
     .finally(() => {
-      renderLoadingСreating(false, buttonSaveAvatar);
+      renderButtonText(buttonSaveAvatar, textButtonСreatNoLoading);
     });
 };
 
 //функция добавления новой карточки на страницу через модальное окно 
 const submitAddCardForm = (evt) => {
   evt.preventDefault();
-  renderLoadingСreating(true, buttonSaveCard);
+  renderButtonText(buttonSaveCard, textButtonСreatLoading);
   setAddNewCard(inputCardTitle.value, inputCardLink.value)
     .then((item) => {
-      addCard(createCard(item.name, item.link, item.likes, item.owner._id, item._id));
+      addCard(createCard(item.name, item.link, item.likes, item.owner._id, item._id, userId));
       closePopup(popupElement);
     })
     .catch((err) => console.log(err))
     .finally(() => {
-      renderLoadingСreating(false, buttonSaveCard);
+      renderButtonText(buttonSaveCard, textButtonСreatNoLoading);
     });
 };
 
@@ -88,14 +89,13 @@ formAddCard.addEventListener('submit', submitAddCardForm);
 // слушатель формы avatar
 formAvatar.addEventListener('submit', submitAvatarForm);
 
-
 // слушатель для всех кнопок закрытия попапов
 buttonClose.forEach((element) => {
   element.addEventListener('click', () => closePopup());
 });
 
 // переменная для храннения ID пользователя
-export let userId;
+let userId;
 
 // функция данных профеля 
 const profileSet = (user) => {
@@ -111,7 +111,7 @@ const pageRendering = () => {
     .then(([user, cards]) => {
       profileSet(user);
       cards.reverse().forEach(item => {
-        addCard(createCard(item.name, item.link, item.likes, item.owner._id, item._id));
+        addCard(createCard(item.name, item.link, item.likes, item.owner._id, item._id, userId));
       });
     })
     .catch((err) => console.log(err));

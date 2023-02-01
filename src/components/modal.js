@@ -1,7 +1,5 @@
 import {popups} from './variables.js';
 
-
-
 //функция Октрытие попапа
 export function openPopup(popupItem) {
   popupItem.classList.add('popup_opened');
@@ -36,23 +34,16 @@ function closePopupthroughEscape(evt) {
 
 // вешаем слушатель на все попапы через оверлей
 popups.forEach(popupItem => {
-  popupItem.addEventListener('click', closePopupthroughOverlay);
+  popupItem.addEventListener('mousedown', closePopupthroughOverlay);
 });
 
-// текст кнопки на момент загрузки данных 
-export const renderLoadingSave = (isLoading, button) => {
-  if (isLoading) {
-    button.textContent = 'Сохранение...';
-  } else {
-    button.textContent = 'Сохранить';
-  }
+//функция изменения текст кнопки модального окна на момент обновление данных 
+export const renderButtonText = (button, text) => {
+    button.textContent = text;
 };
 
-// текст кнопки на момент загрузки данных
-export const renderLoadingСreating = (isLoading, button) => {
-  if (isLoading) {
-    button.textContent = 'Создание...';
-  } else {
-    button.textContent = 'Создать';
-  }
-};
+//текст для модальных окон на момент обновление данных и после обновление данных
+export const textButtonSaveLoading = 'Сохранение...'; 
+export const textButtonSaveNoLoading = 'Сохранить';
+export const textButtonСreatLoading = 'Создание...';
+export const textButtonСreatNoLoading = 'Создать';
