@@ -5,7 +5,7 @@ import {
   jobProfile, profileButtonEdit, profileButtonCreate, validationParameters,
   profileAvatar, avatarButtonEdit, popupAvatar, formAvatar, popupLineAvatar,
   buttonSaveUser, buttonSaveCard, buttonSaveAvatar
-} from "./variables.js";
+} from "./utils/variables.js";
 import { addCard, createCard } from "./card.js";
 import { openPopup, closePopup, renderButtonText, textButtonSaveLoading, textButtonSaveNoLoading, textButtonСreatLoading, textButtonСreatNoLoading } from "./modal.js";
 import { enableValidation, validationStaticInput } from "./validate.js";
