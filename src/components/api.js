@@ -87,6 +87,7 @@ export class Api {
       method: 'PUT',
       headers: this.headers
     })
-      .then(res => this._checkAnswer(res));
+      .then(res => 
+        this._checkAnswer(res));
   }
 }
