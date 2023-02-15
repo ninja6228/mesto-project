@@ -1,92 +1,107 @@
-export const apiConfig = {
-  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-19',
-  headers: {
-    authorization: 'fa502774-84af-45f4-983e-9c19482d4caf',
-    'Content-Type': 'application/json'
+export class Api {
+  constructor({ link, headers }) {
+    this.link = link;
+    this.headers = headers;
   }
-};
 
-// проверка ответа от серевера с выводом ошибки
-const checkAnswer = (result) => {
-  if (result.ok) {
-    return result.json();
+  // Метод проверка ответа от серевера
+  _checkAnswer(result) {
+    if (result.ok) {
+      return result.json();
+    }
+    return Promise.reject(`Ошибка: ${result.status}`);
   }
-  return Promise.reject(`Ошибка: ${result.status}`);
-};
 
+  // Метод для получение с сервера обькта с карточками
+  apiCards() {
+    return fetch(`${this.link}/cards`, { headers: this.headers })
+      .then(res => {
+        return this._checkAnswer(res);
+      });
+  }
 
-// получение с сервера обькта с карточками
-export const apiCards = () => {
-  return fetch(`${apiConfig.baseUrl}/cards`, { headers: apiConfig.headers })
-    .then((res) => checkAnswer(res));
-};
+  // Метод получение с сервера обьекта с данными пользывателя
+  apiUser() {
+    return fetch(`${this.link}/users/me`, { headers: this.headers })
+      .then(res => {
+        return this._checkAnswer(res);
+      });
+  }
 
-// получение с сервера обьекта с данными пользывателя
-export const apiUser = () => {
-  return fetch(`${apiConfig.baseUrl}/users/me`, { headers: apiConfig.headers })
-    .then((res) => checkAnswer(res));
-};
-
-//передача данных пользывателя на сервер
-export function setUserInfo(userName, userInfo) {
-  return fetch(`${apiConfig.baseUrl}/users/me`, {
-    method: 'PATCH',
-    headers: apiConfig.headers,
-    body: JSON.stringify({
-      name: userName,
-      about: userInfo
+  // Метод передачи данных пользывателя на сервер
+  setUserInfo(profileData) {
+    return fetch(`${this.link}/users/me`, {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify({
+        name: profileData.username,
+        about: profileData.description
+      })
     })
-  }).then(checkAnswer);
-}
+      .then(res => {
+        return this._checkAnswer(res);
+      });
+  }
 
-// функция публикации новой карточки на сервер 
-export function setAddNewCard(cardName, cardUrl) {
-  return fetch(`${apiConfig.baseUrl}/cards`, {
-    method: 'POST',
-    headers: apiConfig.headers,
-    body: JSON.stringify({
-      name: cardName,
-      link: cardUrl
+  // Метод передачи новой аватарки на сервер
+  setUserAvatar(urlAvatar) {
+    return fetch(`${this.link}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify({
+        avatar: urlAvatar
+      })
     })
-  }).then(checkAnswer);
-}
+      .then(res => {
+        return this._checkAnswer(res);
+      });
+  }
 
-// функиция передачи новой аватарки на сервер 
-export function setUserAvatar(urlAvatar) {
-  return fetch(`${apiConfig.baseUrl}/users/me/avatar`, {
-    method: 'PATCH',
-    headers: apiConfig.headers,
-    body: JSON.stringify({
-      avatar: urlAvatar
+  // Метод публикации новой карточки на сервер 
+  setAddNewCard(cardData) {
+    return fetch(`${this.link}/cards`, {
+      method: 'POST',
+      headers: this.headers,
+      body: JSON.stringify({
+        name: cardData.name,
+        link: cardData.link
+      })
     })
-  }).then(checkAnswer);
-}
+      .then(res => {
+        return this._checkAnswer(res);
+      });
+  }
 
-// функция удаления карточки по id c сервера
-export function deletiCardApi(idCard) {
-  return fetch(`${apiConfig.baseUrl}/cards/${idCard}`, {
-    method: 'DELETE',
-    headers: apiConfig.headers
-  }).then(checkAnswer);
-}
+  // Метод удаления карточки по id c сервера
+  deletiCardApi(idCard) {
+    return fetch(`${this.link}/cards/${idCard}`, {
+      method: 'DELETE',
+      headers: this.headers
+    })
+      .then(res => {
+        return this._checkAnswer(res);
+      });
+  }
 
-// функция добавления лайка по id c сервера
-export function addlikeApi(idCard) {
-  return fetch(`${apiConfig.baseUrl}/cards/likes/${idCard}`, {
-    method: 'PUT',
-    headers: apiConfig.headers
-  }).then(checkAnswer);
-}
+  // Метод удаления лайка по id c сервера
+  deletelikeApi(idCard) {
+    return fetch(`${this.link}/cards/likes/${idCard}`, {
+      method: 'DELETE',
+      headers: this.headers
+    })
+      .then(res => {
+        return this._checkAnswer(res);
+      });
+  }
 
-
-// функция удаления лайка по id c сервера
-export function deletelikeApi(idCard) {
-  return fetch(`${apiConfig.baseUrl}/cards/likes/${idCard}`, {
-    method: 'DELETE',
-    headers: apiConfig.headers
-  }).then(checkAnswer);
-}
-
-export function getAppInfo() {
-  return Promise.all([apiUser(), apiCards()]);
+  // Метод добавления лайка по id c сервера
+  addlikeApi(idCard) {
+    return fetch(`${apiConfig.baseUrl}/cards/likes/${idCard}`, {
+      method: 'PUT',
+      headers: this.headers
+    })
+      .then(res => {
+        return this._checkAnswer(res);
+      });
+  }
 }
