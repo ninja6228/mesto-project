@@ -10,7 +10,7 @@ import { addCard, createCard } from "./card.js";
 import { openPopup, closePopup, renderButtonText, textButtonSaveLoading, textButtonSaveNoLoading, textButtonСreatLoading, textButtonСreatNoLoading } from "./modal.js";
 import { enableValidation, validationStaticInput } from "./validate.js";
 import { apiConfig } from './utils/apiConfig';
-import { Api } from "./api.js";
+import { Api } from "./Api.js";
 
 
 const conectApi = new Api(apiConfig);

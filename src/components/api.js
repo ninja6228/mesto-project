@@ -15,17 +15,14 @@ export class Api {
   // Метод для получение с сервера обькта с карточками
   apiCards() {
     return fetch(`${this.link}/cards`, { headers: this.headers })
-      .then(res => {
-        return this._checkAnswer(res);
-      });
+    .then(res => this._checkAnswer(res));
   }
+
 
   // Метод получение с сервера обьекта с данными пользывателя
   apiUser() {
     return fetch(`${this.link}/users/me`, { headers: this.headers })
-      .then(res => {
-        return this._checkAnswer(res);
-      });
+    .then(res => this._checkAnswer(res));
   }
 
   // Метод передачи данных пользывателя на сервер
@@ -38,9 +35,7 @@ export class Api {
         about: profileData.description
       })
     })
-      .then(res => {
-        return this._checkAnswer(res);
-      });
+    .then(res => this._checkAnswer(res));
   }
 
   // Метод передачи новой аватарки на сервер
@@ -52,9 +47,7 @@ export class Api {
         avatar: urlAvatar
       })
     })
-      .then(res => {
-        return this._checkAnswer(res);
-      });
+    .then(res => this._checkAnswer(res));
   }
 
   // Метод публикации новой карточки на сервер 
@@ -67,9 +60,7 @@ export class Api {
         link: cardData.link
       })
     })
-      .then(res => {
-        return this._checkAnswer(res);
-      });
+    .then(res => this._checkAnswer(res));
   }
 
   // Метод удаления карточки по id c сервера
@@ -78,9 +69,7 @@ export class Api {
       method: 'DELETE',
       headers: this.headers
     })
-      .then(res => {
-        return this._checkAnswer(res);
-      });
+    .then(res => this._checkAnswer(res));
   }
 
   // Метод удаления лайка по id c сервера
@@ -89,9 +78,7 @@ export class Api {
       method: 'DELETE',
       headers: this.headers
     })
-      .then(res => {
-        return this._checkAnswer(res);
-      });
+    .then(res => this._checkAnswer(res));
   }
 
   // Метод добавления лайка по id c сервера
@@ -100,8 +87,6 @@ export class Api {
       method: 'PUT',
       headers: this.headers
     })
-      .then(res => {
-        return this._checkAnswer(res);
-      });
+    .then(res => this._checkAnswer(res));
   }
 }
