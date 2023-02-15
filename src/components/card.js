@@ -1,5 +1,5 @@
 import { openPopup } from "./modal.js";
-import { popupImg, titleImg, pictureImg } from "./utils/variables.js";
+import { popupImg, titleImg, pictureImg } from "./utils/constants.js";
 import { deletiCardApi, addlikeApi, deletelikeApi } from "./api.js";
 
 
@@ -23,35 +23,35 @@ const setOpenCardImageListener = (element, title, link) => {
   });
 };
 
-// функция добавления лайка на сервер
-const addlike = (button, counter, likes, cardId) => {
-  return addlikeApi(cardId)
-    .then((result) => {
-      if (!(button.classList.contains('elements__button_active'))) {
-        counter.textContent = likes.length + 1;
-      }
-      button.classList.add('elements__button_active');
-      counter.textContent = result.likes.length;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+// // функция добавления лайка на сервер
+// const addlike = (button, counter, likes, cardId) => {
+//   return addlikeApi(cardId)
+//     .then((result) => {
+//       if (!(button.classList.contains('elements__button_active'))) {
+//         counter.textContent = likes.length + 1;
+//       }
+//       button.classList.add('elements__button_active');
+//       counter.textContent = result.likes.length;
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
 
-// функция удаления лайка на с сервер
-const deletelike = (button, counter, likes, cardId) => {
-  return deletelikeApi(cardId)
-    .then((result) => {
-      if (button.classList.contains('elements__button_active')) {
-        counter.textContent = likes.length - 1;
-      }
-      button.classList.remove('elements__button_active');
-      counter.textContent = result.likes.length;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+// // функция удаления лайка на с сервер
+// const deletelike = (button, counter, likes, cardId) => {
+//   return deletelikeApi(cardId)
+//     .then((result) => {
+//       if (button.classList.contains('elements__button_active')) {
+//         counter.textContent = likes.length - 1;
+//       }
+//       button.classList.remove('elements__button_active');
+//       counter.textContent = result.likes.length;
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
 
 //функция формерования новой карточки 
 export const createCard = (titleValue, linkValue, likes, idCreator, idCard, userId) => {
@@ -68,21 +68,21 @@ export const createCard = (titleValue, linkValue, likes, idCreator, idCard, user
   // проверка есть ли лайк 
   cardLikes.forEach(function (element) { if (element._id === userId) { buttonLike.classList.add('elements__button_active'); } });
   // отоброжение кнопки удалить
-  if (idCreator !== userId) { buttonDelete.remove(); }
+  // if (idCreator !== userId) { buttonDelete.remove(); }
   // лайк - не лайк
-  buttonLike.addEventListener('click', function () {
-    if (buttonLike.classList.contains('elements__button_active')) {
-      deletelike(buttonLike, elementsCounterLike, likes, idCard);
-    } else {
-      addlike(buttonLike, elementsCounterLike, likes, idCard);
-    }
-  });
+  // buttonLike.addEventListener('click', function () {
+  //   if (buttonLike.classList.contains('elements__button_active')) {
+  //     deletelike(buttonLike, elementsCounterLike, likes, idCard);
+  //   } else {
+  //     addlike(buttonLike, elementsCounterLike, likes, idCard);
+  //   }
+  // });
   // удаление карточки 
-  buttonDelete.addEventListener('click', () => {
-    deletiCardApi(idCard)
-      .then(() => elementsElement.remove())
-      .catch((err) => console.log(err));
-  });
+  // buttonDelete.addEventListener('click', () => {
+  //   deletiCardApi(idCard)
+  //     .then(() => elementsElement.remove())
+  //     .catch((err) => console.log(err));
+  // });
   // открытие картинки в карточке
   setOpenCardImageListener(elementsImg, titleValue, linkValue);
 
