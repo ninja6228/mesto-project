@@ -1,5 +1,5 @@
 import { openPopup } from "./modal.js";
-import { popupImg, titleImg, pictureImg } from "./variables.js";
+import { popupImg, titleImg, pictureImg } from "./utils/variables.js";
 import { deletiCardApi, addlikeApi, deletelikeApi } from "./api.js";
 
 
