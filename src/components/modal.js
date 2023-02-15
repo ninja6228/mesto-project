@@ -1,4 +1,4 @@
-import {popups} from './utils/variables.js';
+import {popups} from './utils/constants.js';
 
 //функция Октрытие попапа
 export function openPopup(popupItem) {
