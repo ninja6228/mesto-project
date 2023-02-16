@@ -1,18 +1,19 @@
 import '../pages/index.css';
 import {
-  buttonClose, popupUser, formUser, nameInput, jobInput,
-  popupElement, formAddCard, inputCardTitle, inputCardLink, nameProfile,
+  buttonClose, formUser, nameInput, jobInput, formAddCard, inputCardTitle, inputCardLink, nameProfile,
   jobProfile, profileButtonEdit, profileButtonCreate, validationParameters,
   profileAvatar, avatarButtonEdit, formAvatar, popupLineAvatar,
   buttonSaveUser, buttonSaveCard, buttonSaveAvatar
 } from "./variables.js";
 import { addCard, createCard } from "./card.js";
-import Popup, { openPopup, closePopup, renderButtonText, textButtonSaveLoading, textButtonSaveNoLoading, textButtonСreatLoading, textButtonСreatNoLoading } from "./Popup.js";
+import Popup, { renderButtonText, textButtonSaveLoading, textButtonSaveNoLoading, textButtonСreatLoading, textButtonСreatNoLoading } from "./Popup.js";
 import { enableValidation, validationStaticInput } from "./validate.js";
 import { setUserInfo, setAddNewCard, getAppInfo, setUserAvatar } from "./api.js";
 
 
 const popupAvatar = new Popup('.popup_type_avatar')
+const popupUser = new Popup('.popup_type_user');
+const popupElement = new Popup('.popup_type_element');
 
 
 // функция изменения имени и дейтельности через попап
@@ -22,7 +23,7 @@ const submitEditProfileForm = (evt) => {
   setUserInfo(nameInput.value, jobInput.value)
     .then((user) => {
       profileSet(user);
-      closePopup(popupUser);
+      popupUser.close()
     })
     .catch((err) => console.log(err))
     .finally(() => {
@@ -52,7 +53,7 @@ const submitAddCardForm = (evt) => {
   setAddNewCard(inputCardTitle.value, inputCardLink.value)
     .then((item) => {
       addCard(createCard(item.name, item.link, item.likes, item.owner._id, item._id, userId));
-      closePopup(popupElement);
+      popupElement.close()
     })
     .catch((err) => console.log(err))
     .finally(() => {
@@ -65,14 +66,14 @@ profileButtonEdit.addEventListener('click', () => {
   nameInput.value = nameProfile.textContent;
   jobInput.value = jobProfile.textContent;
   validationStaticInput(formUser, validationParameters);
-  openPopup(popupUser);
+  popupUser.open();
 });
 
 // Октрытие модального окна Element с проверкой валидации
 profileButtonCreate.addEventListener('click', () => {
   formAddCard.reset();
   validationStaticInput(formAddCard, validationParameters);
-  openPopup(popupElement);
+  popupElement.open();
 });
 
 // Открытие модального окна Avatar с проверкой валидации
@@ -93,7 +94,7 @@ formAvatar.addEventListener('submit', submitAvatarForm);
 
 // слушатель для всех кнопок закрытия попапов
 buttonClose.forEach((element) => {
-  element.addEventListener('click', () => closePopup());
+  element.addEventListener('click', () => new Popup().close());
 });
 
 // переменная для храннения ID пользователя

@@ -1,7 +1,8 @@
-import { openPopup } from "./Popup.js";
-import { popupImg, titleImg, pictureImg } from "./variables.js";
+import Popup from "./Popup.js";
+import { titleImg, pictureImg } from "./variables.js";
 import { deletiCardApi, addlikeApi, deletelikeApi } from "./api.js";
 
+const popupImg = new Popup('.popup_type_img');
 
 // место добавления новых карточек
 const elementsSection = document.querySelector('.elements__wrapper');
@@ -19,7 +20,7 @@ const setOpenCardImageListener = (element, title, link) => {
     titleImg.textContent = title;
     pictureImg.src = link;
     pictureImg.alt = `фотография ${title}`;
-    openPopup(popupImg);
+    popupImg.open()
   });
 };
 
