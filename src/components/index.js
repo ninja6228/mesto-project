@@ -3,14 +3,16 @@ import {
   buttonClose, popupUser, formUser, nameInput, jobInput,
   popupElement, formAddCard, inputCardTitle, inputCardLink, nameProfile,
   jobProfile, profileButtonEdit, profileButtonCreate, validationParameters,
-  profileAvatar, avatarButtonEdit, popupAvatar, formAvatar, popupLineAvatar,
+  profileAvatar, avatarButtonEdit, formAvatar, popupLineAvatar,
   buttonSaveUser, buttonSaveCard, buttonSaveAvatar
 } from "./variables.js";
 import { addCard, createCard } from "./card.js";
-import { openPopup, closePopup, renderButtonText, textButtonSaveLoading, textButtonSaveNoLoading, textButtonСreatLoading, textButtonСreatNoLoading } from "./modal.js";
+import Popup, { openPopup, closePopup, renderButtonText, textButtonSaveLoading, textButtonSaveNoLoading, textButtonСreatLoading, textButtonСreatNoLoading } from "./Popup.js";
 import { enableValidation, validationStaticInput } from "./validate.js";
 import { setUserInfo, setAddNewCard, getAppInfo, setUserAvatar } from "./api.js";
 
+
+const popupAvatar = new Popup('.popup_type_avatar')
 
 
 // функция изменения имени и дейтельности через попап
@@ -35,7 +37,7 @@ const submitAvatarForm = (evt) => {
   setUserAvatar(popupLineAvatar.value)
     .then((user) => {
       profileSet(user);
-      closePopup(popupAvatar);
+      popupAvatar.close();
     })
     .catch((err) => console.log(err))
     .finally(() => {
@@ -77,7 +79,7 @@ profileButtonCreate.addEventListener('click', () => {
 avatarButtonEdit.addEventListener('click', () => {
   formAvatar.reset();
   validationStaticInput(formAvatar, validationParameters);
-  openPopup(popupAvatar);
+  popupAvatar.open()
 });
 
 // слушатель формы user
