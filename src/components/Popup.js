@@ -12,6 +12,7 @@ export const textButtonСreatNoLoading = 'Создать';
 class Popup {
   constructor(popupSelector) {
     this._popupContainer = document.querySelector(popupSelector);
+    this._closePopupIcon = this._popupContainer.querySelector('.popup__toggle');
   }
 
   open() {
@@ -35,12 +36,19 @@ class Popup {
     }
   }
 
-  setEventListeners(evt) {
-    if (evt.target.classList.contains('popup_opened')) {
-      this.close();
-      evt.stopPropagation();
-    }
+  setEventListeners() {
+    this._closePopupIcon.addEventListener("click", this.close)
+
+    this._popupContainer.addEventListener("click", (evt) => {
+      if (evt.target.classList.contains('popup_opened')) {
+        this.close();
+      }
+    })
   }
+}
+
+class PopupWithImage extends Popup {
+
 }
 
 export default Popup;

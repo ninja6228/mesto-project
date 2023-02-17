@@ -1,6 +1,6 @@
 import '../pages/index.css';
 import {
-  buttonClose, formUser, nameInput, jobInput, formAddCard, inputCardTitle, inputCardLink, nameProfile,
+  formUser, nameInput, jobInput, formAddCard, inputCardTitle, inputCardLink, nameProfile,
   jobProfile, profileButtonEdit, profileButtonCreate, validationParameters,
   profileAvatar, avatarButtonEdit, formAvatar, popupLineAvatar,
   buttonSaveUser, buttonSaveCard, buttonSaveAvatar
@@ -11,10 +11,14 @@ import { enableValidation, validationStaticInput } from "./validate.js";
 import { setUserInfo, setAddNewCard, getAppInfo, setUserAvatar } from "./api.js";
 
 
-const popupAvatar = new Popup('.popup_type_avatar')
-const popupUser = new Popup('.popup_type_user');
-const popupElement = new Popup('.popup_type_element');
+const popupAvatar = new Popup('.popup_type_avatar');
+popupAvatar.setEventListeners();
 
+const popupUser = new Popup('.popup_type_user');
+popupUser.setEventListeners();
+
+const popupElement = new Popup('.popup_type_element');
+popupElement.setEventListeners();
 
 // функция изменения имени и дейтельности через попап
 const submitEditProfileForm = (evt) => {
@@ -91,11 +95,6 @@ formAddCard.addEventListener('submit', submitAddCardForm);
 
 // слушатель формы avatar
 formAvatar.addEventListener('submit', submitAvatarForm);
-
-// слушатель для всех кнопок закрытия попапов
-buttonClose.forEach((element) => {
-  element.addEventListener('click', () => new Popup().close());
-});
 
 // переменная для храннения ID пользователя
 let userId;
