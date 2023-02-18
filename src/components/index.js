@@ -4,12 +4,15 @@ import {
   jobProfile, profileButtonEdit, profileButtonCreate, validationParameters,
   profileAvatar, avatarButtonEdit, formAvatar, popupLineAvatar,
   buttonSaveUser, buttonSaveCard, buttonSaveAvatar
-} from "./variables.js";
+} from "./utils/constants.js";
 import { addCard, createCard } from "./card.js";
 import Popup, { renderButtonText, textButtonSaveLoading, textButtonSaveNoLoading, textButtonСreatLoading, textButtonСreatNoLoading } from "./Popup.js";
 import { enableValidation, validationStaticInput } from "./validate.js";
-import { setUserInfo, setAddNewCard, getAppInfo, setUserAvatar } from "./api.js";
+import { apiConfig } from './utils/apiConfig';
+import { Api } from "./api";
 
+
+const conectApi = new Api(apiConfig);
 
 const popupAvatar = new Popup('.popup_type_avatar');
 popupAvatar.setEventListeners();
@@ -107,18 +110,11 @@ const profileSet = (user) => {
     userId = user._id
 };
 
-//одновременная загрузка всех данных на страницу 
-const pageRendering = () => {
-  getAppInfo()
-    .then(([user, cards]) => {
-      profileSet(user);
-      cards.reverse().forEach(item => {
-        addCard(createCard(item.name, item.link, item.likes, item.owner._id, item._id, userId));
-      });
-    })
-    .catch((err) => console.log(err));
-};
-pageRendering();
+
+
+// Временно!
+Promise.all([conectApi.apiUser()])
+  .then(([user]) => { profileSet(user); });
 
 // включение валидации с параметрами
 enableValidation(validationParameters);
