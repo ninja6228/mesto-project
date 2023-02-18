@@ -1,6 +1,6 @@
 import { openPopup } from "./modal.js";
 import { popupImg, titleImg, pictureImg } from "./utils/constants.js";
-import { deletiCardApi, addlikeApi, deletelikeApi } from "./api.js";
+// import { deletiCardApi, addlikeApi, deletelikeApi } from "./api.js";
 
 
 // место добавления новых карточек
