@@ -1,8 +1,5 @@
-import Popup from "./Popup.js";
-import { titleImg, pictureImg } from "./utils/constants";
+import {PopupWithImage} from "./Popup.js";
 // import { deletiCardApi, addlikeApi, deletelikeApi } from "./api.js";
-
-const popupImg = new Popup('.popup_type_img');
 
 // место добавления новых карточек
 const elementsSection = document.querySelector('.elements__wrapper');
@@ -12,16 +9,6 @@ const elementsTemplate = document.querySelector('#elements-template').content;
 // функция добавления карточки в DOM
 export const addCard = (card) => {
   elementsSection.prepend(card);
-};
-
-//попап для карточки
-const setOpenCardImageListener = (element, title, link) => {
-  element.addEventListener('click', () => {
-    titleImg.textContent = title;
-    pictureImg.src = link;
-    pictureImg.alt = `фотография ${title}`;
-    popupImg.open()
-  });
 };
 
 // // функция добавления лайка на сервер
@@ -66,8 +53,13 @@ export const createCard = (titleValue, linkValue, likes, idCreator, idCard, user
   elementsImg.src = linkValue;
   elementsImg.alt = `фотография ${titleValue}`;
   elementsCounterLike.textContent = likes.length;
+
   // проверка есть ли лайк 
-  cardLikes.forEach(function (element) { if (element._id === userId) { buttonLike.classList.add('elements__button_active'); } });
+  cardLikes.forEach(function (element) {
+    if (element._id === userId) {
+      buttonLike.classList.add('elements__button_active');
+    }
+  });
   // отоброжение кнопки удалить
   // if (idCreator !== userId) { buttonDelete.remove(); }
   // лайк - не лайк
@@ -84,8 +76,16 @@ export const createCard = (titleValue, linkValue, likes, idCreator, idCard, user
   //     .then(() => elementsElement.remove())
   //     .catch((err) => console.log(err));
   // });
-  // открытие картинки в карточке
-  setOpenCardImageListener(elementsImg, titleValue, linkValue);
+
+  const popupImg = new PopupWithImage({
+    src: linkValue,
+    alt: `фотография ${titleValue}`,
+    caption: titleValue
+  }, '.popup_type_img')
+
+  elementsImg.addEventListener('click', () => {
+    popupImg.open();
+  })
 
   return elementsElement;
 }

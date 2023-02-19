@@ -6,7 +6,7 @@ import {
   buttonSaveUser, buttonSaveCard, buttonSaveAvatar
 } from "./utils/constants.js";
 import { addCard, createCard } from "./card.js";
-import Popup, { renderButtonText, textButtonSaveLoading, textButtonSaveNoLoading, textButtonСreatLoading, textButtonСreatNoLoading } from "./Popup.js";
+import { Popup, renderButtonText, textButtonSaveLoading, textButtonSaveNoLoading, textButtonСreatLoading, textButtonСreatNoLoading } from "./Popup.js";
 import { enableValidation, validationStaticInput } from "./validate.js";
 import { apiConfig } from './utils/apiConfig';
 import { Api } from "./api";
