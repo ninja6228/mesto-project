@@ -6,28 +6,26 @@ import {
   buttonSaveUser, buttonSaveCard, buttonSaveAvatar
 } from "./utils/constants.js";
 import { addCard, createCard } from "./card.js";
-import { Popup, renderButtonText, textButtonSaveLoading, textButtonSaveNoLoading, textButtonСreatLoading, textButtonСreatNoLoading } from "./Popup.js";
+import {
+  PopupWithForm,
+  renderButtonText,
+  textButtonSaveLoading,
+  textButtonSaveNoLoading,
+  textButtonСreatLoading,
+  textButtonСreatNoLoading
+} from "./Popup.js";
 import { enableValidation, validationStaticInput } from "./validate.js";
 import { apiConfig } from './utils/apiConfig';
 import { Api } from "./api";
 import { Section } from './Section.js';
 
-const conectApi = new Api(apiConfig);
-
-const popupAvatar = new Popup('.popup_type_avatar');
-popupAvatar.setEventListeners();
-
-const popupUser = new Popup('.popup_type_user');
-popupUser.setEventListeners();
-
-const popupElement = new Popup('.popup_type_element');
-popupElement.setEventListeners();
+const api = new Api(apiConfig);
 
 // функция изменения имени и дейтельности через попап
 const submitEditProfileForm = (evt) => {
   evt.preventDefault();
   renderButtonText(buttonSaveUser, textButtonSaveLoading);
-  setUserInfo(nameInput.value, jobInput.value)
+  api.setUserInfo(nameInput.value, jobInput.value)
     .then((user) => {
       profileSet(user);
       popupUser.close()
@@ -42,7 +40,7 @@ const submitEditProfileForm = (evt) => {
 const submitAvatarForm = (evt) => {
   evt.preventDefault();
   renderButtonText(buttonSaveAvatar, textButtonСreatLoading);
-  setUserAvatar(popupLineAvatar.value)
+  api.setUserAvatar(popupLineAvatar.value)
     .then((user) => {
       profileSet(user);
       popupAvatar.close();
@@ -57,16 +55,28 @@ const submitAvatarForm = (evt) => {
 const submitAddCardForm = (evt) => {
   evt.preventDefault();
   renderButtonText(buttonSaveCard, textButtonСreatLoading);
-  setAddNewCard(inputCardTitle.value, inputCardLink.value)
+  api.setAddNewCard({
+    name: inputCardTitle.value,
+    link: inputCardLink.value
+  })
     .then((item) => {
       addCard(createCard(item.name, item.link, item.likes, item.owner._id, item._id, userId));
-      popupElement.close()
+      popupNewCard.close()
     })
     .catch((err) => console.log(err))
     .finally(() => {
       renderButtonText(buttonSaveCard, textButtonСreatNoLoading);
     });
 };
+
+const popupUser = new PopupWithForm((evt) => submitEditProfileForm(evt), '.popup_type_user');
+popupUser.setEventListeners();
+
+const popupNewCard = new PopupWithForm((evt) => submitAddCardForm(evt), '.popup_type_element');
+popupNewCard.setEventListeners();
+
+const popupAvatar = new PopupWithForm((evt) => submitAvatarForm(evt), '.popup_type_avatar');
+popupAvatar.setEventListeners();
 
 // Октрытие модального окна User с проверкой валидации
 profileButtonEdit.addEventListener('click', () => {
@@ -80,7 +90,7 @@ profileButtonEdit.addEventListener('click', () => {
 profileButtonCreate.addEventListener('click', () => {
   formAddCard.reset();
   validationStaticInput(formAddCard, validationParameters);
-  popupElement.open();
+  popupNewCard.open();
 });
 
 // Открытие модального окна Avatar с проверкой валидации
@@ -89,15 +99,6 @@ avatarButtonEdit.addEventListener('click', () => {
   validationStaticInput(formAvatar, validationParameters);
   popupAvatar.open()
 });
-
-// слушатель формы user
-formUser.addEventListener('submit', submitEditProfileForm);
-
-// слушатель формы Element
-formAddCard.addEventListener('submit', submitAddCardForm);
-
-// слушатель формы avatar
-formAvatar.addEventListener('submit', submitAvatarForm);
 
 // переменная для храннения ID пользователя
 let userId;
@@ -122,7 +123,7 @@ const ServerCard = new Section({
 }, '.elements__wrapper');
 
 
-Promise.all([conectApi.apiUser(), conectApi.apiCards()])
+Promise.all([api.apiUser(), api.apiCards()])
   .then(([user, objcards]) => {
     profileSet(user);
     ServerCard.rendererItem(objcards.reverse());

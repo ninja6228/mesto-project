@@ -67,4 +67,35 @@ class PopupWithImage extends Popup {
   }
 }
 
-export {Popup, PopupWithImage};
+class PopupWithForm extends Popup {
+  constructor(submit, popupSelector) {
+    super(popupSelector);
+
+    this._form = this._popupContainer.querySelector('form');
+    this._submit = submit;
+  }
+
+  close() {
+    super.close();
+
+    this._form.reset();
+  }
+
+  setEventListeners() {
+    super.setEventListeners();
+
+    this._form.addEventListener('submit', this._submit)
+  }
+
+  _getInputValues() {
+    const values = [];
+
+    Array.from(this._form.elements).forEach(element => {
+      values.push(element.value);
+    })
+
+    return values;
+  }
+}
+
+export {Popup, PopupWithImage, PopupWithForm};

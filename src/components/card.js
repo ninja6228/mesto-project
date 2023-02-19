@@ -1,10 +1,13 @@
 import {PopupWithImage} from "./Popup.js";
-// import { deletiCardApi, addlikeApi, deletelikeApi } from "./api.js";
+import {Api} from "./api";
+import {apiConfig} from "./utils/apiConfig";
 
 // место добавления новых карточек
 const elementsSection = document.querySelector('.elements__wrapper');
 // template форма карточки 
 const elementsTemplate = document.querySelector('#elements-template').content;
+
+const api = new Api(apiConfig);
 
 // функция добавления карточки в DOM
 export const addCard = (card) => {
@@ -60,22 +63,27 @@ export const createCard = (titleValue, linkValue, likes, idCreator, idCard, user
       buttonLike.classList.add('elements__button_active');
     }
   });
+
   // отоброжение кнопки удалить
-  // if (idCreator !== userId) { buttonDelete.remove(); }
-  // лайк - не лайк
-  // buttonLike.addEventListener('click', function () {
-  //   if (buttonLike.classList.contains('elements__button_active')) {
-  //     deletelike(buttonLike, elementsCounterLike, likes, idCard);
-  //   } else {
-  //     addlike(buttonLike, elementsCounterLike, likes, idCard);
-  //   }
-  // });
+  if (idCreator !== userId) {
+    buttonDelete.remove();
+  }
+
+  //лайк - не лайк
+  buttonLike.addEventListener('click', function () {
+    if (buttonLike.classList.contains('elements__button_active')) {
+      api.deleteLikeApi(buttonLike, elementsCounterLike, likes, idCard);
+    } else {
+      api.addLikeApi(buttonLike, elementsCounterLike, likes, idCard);
+    }
+  });
+
   // удаление карточки 
-  // buttonDelete.addEventListener('click', () => {
-  //   deletiCardApi(idCard)
-  //     .then(() => elementsElement.remove())
-  //     .catch((err) => console.log(err));
-  // });
+  buttonDelete.addEventListener('click', () => {
+    api.deleteCardApi(idCard)
+      .then(() => elementsElement.remove())
+      .catch((err) => console.log(err));
+  });
 
   const popupImg = new PopupWithImage({
     src: linkValue,
