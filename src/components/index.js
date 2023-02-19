@@ -14,12 +14,24 @@ import {
   textButtonСreatLoading,
   textButtonСreatNoLoading
 } from "./Popup.js";
-import { enableValidation, validationStaticInput } from "./validate.js";
 import { apiConfig } from './utils/apiConfig';
+// Импорт классов
+import { FormValidator } from './FormValidator.js';
 import { Api } from "./api";
 import { Section } from './Section.js';
+import { UserInfo } from './UserInfo';
+
+// переменная для храннения ID пользователя
+let userId;
 
 const api = new Api(apiConfig);
+
+const user = new UserInfo({
+  name: '.profile__name',
+  description: '.profile__activity',
+  avatar: '.profile__avatar'
+});
+
 
 // функция изменения имени и дейтельности через попап
 const submitEditProfileForm = (evt) => {
@@ -27,7 +39,7 @@ const submitEditProfileForm = (evt) => {
   renderButtonText(buttonSaveUser, textButtonSaveLoading);
   api.setUserInfo(nameInput.value, jobInput.value)
     .then((user) => {
-      profileSet(user);
+      user.setUserInfo(user);
       popupUser.close()
     })
     .catch((err) => console.log(err))
@@ -42,7 +54,7 @@ const submitAvatarForm = (evt) => {
   renderButtonText(buttonSaveAvatar, textButtonСreatLoading);
   api.setUserAvatar(popupLineAvatar.value)
     .then((user) => {
-      profileSet(user);
+      user.setUserAvatar(user);
       popupAvatar.close();
     })
     .catch((err) => console.log(err))
@@ -80,38 +92,44 @@ popupAvatar.setEventListeners();
 
 // Октрытие модального окна User с проверкой валидации
 profileButtonEdit.addEventListener('click', () => {
-  nameInput.value = nameProfile.textContent;
-  jobInput.value = jobProfile.textContent;
-  validationStaticInput(formUser, validationParameters);
+  const actualUserInfo  = user.getUserInfo();
+  nameInput.value = actualUserInfo.userName;
+  jobInput.value = actualUserInfo.userDescription;
+  validatorFormUser.validationStaticInput();
   popupUser.open();
 });
 
 // Октрытие модального окна Element с проверкой валидации
 profileButtonCreate.addEventListener('click', () => {
   formAddCard.reset();
-  validationStaticInput(formAddCard, validationParameters);
+  validatorFormAddCard.validationStaticInput();
   popupNewCard.open();
 });
 
 // Открытие модального окна Avatar с проверкой валидации
 avatarButtonEdit.addEventListener('click', () => {
   formAvatar.reset();
-  validationStaticInput(formAvatar, validationParameters);
+  validatorFormAvatar.validationStaticInput();
   popupAvatar.open()
 });
 
-// переменная для храннения ID пользователя
-let userId;
+// слушатель формы user
+formUser.addEventListener('submit', submitEditProfileForm);
+//включение валидации для формы user
+const validatorFormUser = new FormValidator(validationParameters, formUser);
+validatorFormUser.enableValidation();
 
-// функция данных профеля 
-const profileSet = (user) => {
-  nameProfile.textContent = user.name,
-    jobProfile.textContent = user.about,
-    profileAvatar.src = user.avatar,
-    userId = user._id
-};
+// слушатель формы Element
+formAddCard.addEventListener('submit', submitAddCardForm);
+//включение валидации для формы Element
+const validatorFormAddCard = new FormValidator(validationParameters, formAddCard);
+validatorFormAddCard.enableValidation();
 
-
+// слушатель формы avatar
+formAvatar.addEventListener('submit', submitAvatarForm);
+//включение валидации для формы Avatar
+const validatorFormAvatar = new FormValidator(validationParameters, formAvatar);
+validatorFormAvatar.enableValidation();
 
 
 // Временно!
@@ -124,12 +142,11 @@ const ServerCard = new Section({
 
 
 Promise.all([api.apiUser(), api.apiCards()])
-  .then(([user, objcards]) => {
-    profileSet(user);
-    ServerCard.rendererItem(objcards.reverse());
-   });
-
-// включение валидации с параметрами
-enableValidation(validationParameters);
+  .then(([userInfo, cards]) => {
+    userId = user._id;
+    user.setUserInfo(userInfo);
+    user.setUserAvatar(userInfo);
+    ServerCard.rendererItem(cards.reverse());
+  });
 
 
