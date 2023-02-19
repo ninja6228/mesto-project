@@ -36,9 +36,7 @@ export class FormValidator {
 
   // Приватный метод проверки валидности полей
   _hasInvalidInput(inputList) {
-    return inputList.some((inputElement) => {
-      return !inputElement.validity.valid;
-    });
+    return inputList.some(inputElement => !inputElement.validity.valid);
   }
 
   // Приватный метод переключатель состояния кнопки
