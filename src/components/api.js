@@ -64,7 +64,7 @@ export class Api {
   }
 
   // Метод удаления карточки по id c сервера
-  deletiCardApi(idCard) {
+  deleteCardApi(idCard) {
     return fetch(`${this._link}/cards/${idCard}`, {
       method: 'DELETE',
       headers: this._headers
@@ -73,7 +73,7 @@ export class Api {
   }
 
   // Метод удаления лайка по id c сервера
-  deletelikeApi(idCard) {
+  deleteLikeApi(idCard) {
     return fetch(`${this._link}/cards/likes/${idCard}`, {
       method: 'DELETE',
       headers: this._headers
@@ -82,7 +82,7 @@ export class Api {
   }
 
   // Метод добавления лайка по id c сервера
-  addlikeApi(idCard) {
+  addLikeApi(idCard) {
     return fetch(`${this._link}/cards/likes/${idCard}`, {
       method: 'PUT',
       headers: this._headers
