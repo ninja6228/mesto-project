@@ -119,14 +119,10 @@ formUser.addEventListener('submit', submitEditProfileForm);
 const validatorFormUser = new FormValidator(validationParameters, formUser);
 validatorFormUser.enableValidation();
 
-// слушатель формы Element
-formAddCard.addEventListener('submit', submitAddCardForm);
 //включение валидации для формы Element
 const validatorFormAddCard = new FormValidator(validationParameters, formAddCard);
 validatorFormAddCard.enableValidation();
 
-// слушатель формы avatar
-formAvatar.addEventListener('submit', submitAvatarForm);
 //включение валидации для формы Avatar
 const validatorFormAvatar = new FormValidator(validationParameters, formAvatar);
 validatorFormAvatar.enableValidation();
@@ -143,7 +139,7 @@ const ServerCard = new Section({
 
 Promise.all([api.apiUser(), api.apiCards()])
   .then(([userInfo, cards]) => {
-    userId = user._id;
+    userId = userInfo._id;
     user.setUserInfo(userInfo);
     user.setUserAvatar(userInfo);
     ServerCard.rendererItem(cards.reverse());

@@ -57,7 +57,7 @@ export const createCard = (titleValue, linkValue, likes, idCreator, idCard, user
   elementsImg.alt = `фотография ${titleValue}`;
   elementsCounterLike.textContent = likes.length;
 
-  // проверка есть ли лайк 
+  // проверка есть ли лайк
   cardLikes.forEach(function (element) {
     if (element._id === userId) {
       buttonLike.classList.add('elements__button_active');
@@ -90,6 +90,8 @@ export const createCard = (titleValue, linkValue, likes, idCreator, idCard, user
     alt: `фотография ${titleValue}`,
     caption: titleValue
   }, '.popup_type_img')
+
+  popupImg.setEventListeners();
 
   elementsImg.addEventListener('click', () => {
     popupImg.open();
