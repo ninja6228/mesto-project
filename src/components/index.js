@@ -10,7 +10,7 @@ import Popup, { renderButtonText, textButtonSaveLoading, textButtonSaveNoLoading
 import { enableValidation, validationStaticInput } from "./validate.js";
 import { apiConfig } from './utils/apiConfig';
 import { Api } from "./api";
-
+import { Section } from './Section.js';
 
 const conectApi = new Api(apiConfig);
 
@@ -112,9 +112,21 @@ const profileSet = (user) => {
 
 
 
+
 // Временно!
-Promise.all([conectApi.apiUser()])
-  .then(([user]) => { profileSet(user); });
+
+const ServerCard = new Section({
+  renderer: (item) => {
+    ServerCard.addItem(createCard(item.name, item.link, item.likes, item.owner._id, item._id, userId));
+  }
+}, '.elements__wrapper');
+
+
+Promise.all([conectApi.apiUser(), conectApi.apiCards()])
+  .then(([user, objcards]) => {
+    profileSet(user);
+    ServerCard.rendererItem(objcards.reverse());
+   });
 
 // включение валидации с параметрами
 enableValidation(validationParameters);
