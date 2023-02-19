@@ -1,8 +1,8 @@
 export class UserInfo {
-  constructor( object ) {
-    this._userName = document.querySelector(object.name);
-    this._userDescription = document.querySelector(object.description);
-    this._userAvatar = document.querySelector(object.avatar);
+  constructor({ name, description, avatar }) {
+    this._userName = document.querySelector(name);
+    this._userDescription = document.querySelector(description);
+    this._userAvatar = document.querySelector(avatar);
   }
   // Метод который возвращает объект с данными пользователя
   getUserInfo() {
@@ -12,13 +12,13 @@ export class UserInfo {
     };
   }
   // Метод который принимает новые данные пользователя
-  setUserInfo(object) {
-    this._userName.textContent = object.name;
-    this._userDescription.textContent = object.about;
+  setUserInfo({ name, about }) {
+    this._userName.textContent = name;
+    this._userDescription.textContent = about;
   }
   // Метод для изменения аватарки 
-  setUserAvatar(object) {
-    this._userAvatar.src = object.avatar;
+  setUserAvatar({ avatar }) {
+    this._userAvatar.src = avatar;
   }
 }
 
