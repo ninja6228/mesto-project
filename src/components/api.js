@@ -26,14 +26,11 @@ export class Api {
   }
 
   // Метод передачи данных пользывателя на сервер
-  setUserInfo(profileData) {
+  setUserInfo({ name, about }) {
     return fetch(`${this._link}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
-      body: JSON.stringify({
-        name: profileData.name,
-        about: profileData.about
-      })
+      body: JSON.stringify({ name, about })
     })
       .then(res => this._checkAnswer(res));
   }
