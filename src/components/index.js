@@ -37,10 +37,13 @@ const user = new UserInfo({
 const submitEditProfileForm = (evt) => {
   evt.preventDefault();
   renderButtonText(buttonSaveUser, textButtonSaveLoading);
-  api.setUserInfo(nameInput.value, jobInput.value)
-    .then((user) => {
-      user.setUserInfo(user);
-      popupUser.close()
+  api.setUserInfo({
+    name: nameInput.value,
+    about: jobInput.value
+  })
+    .then((items) => {
+      user.setUserInfo(items);
+      popupUser.close();
     })
     .catch((err) => console.log(err))
     .finally(() => {
@@ -53,8 +56,8 @@ const submitAvatarForm = (evt) => {
   evt.preventDefault();
   renderButtonText(buttonSaveAvatar, textButtonСreatLoading);
   api.setUserAvatar(popupLineAvatar.value)
-    .then((user) => {
-      user.setUserAvatar(user);
+    .then((items) => {
+      user.setUserAvatar(items);
       popupAvatar.close();
     })
     .catch((err) => console.log(err))
@@ -92,7 +95,7 @@ popupAvatar.setEventListeners();
 
 // Октрытие модального окна User с проверкой валидации
 profileButtonEdit.addEventListener('click', () => {
-  const actualUserInfo  = user.getUserInfo();
+  const actualUserInfo = user.getUserInfo();
   nameInput.value = actualUserInfo.userName;
   jobInput.value = actualUserInfo.userDescription;
   validatorFormUser.validationStaticInput();

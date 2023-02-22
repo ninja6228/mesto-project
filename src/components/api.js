@@ -31,8 +31,8 @@ export class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: profileData.username,
-        about: profileData.description
+        name: profileData.name,
+        about: profileData.about
       })
     })
       .then(res => this._checkAnswer(res));
