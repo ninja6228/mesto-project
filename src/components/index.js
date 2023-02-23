@@ -1,13 +1,11 @@
 import '../pages/index.css';
 import {
-  formUser, nameInput, jobInput, formAddCard, inputCardTitle, inputCardLink, nameProfile,
-  jobProfile, profileButtonEdit, profileButtonCreate, validationParameters,
-  profileAvatar, avatarButtonEdit, formAvatar, popupLineAvatar,
+  formUser, nameInput, jobInput, formAddCard, inputCardTitle, inputCardLink, profileButtonEdit, profileButtonCreate, validationParameters, avatarButtonEdit, formAvatar, popupLineAvatar,
   buttonSaveUser, buttonSaveCard, buttonSaveAvatar
 } from "./utils/constants.js";
-import { addCard, createCard } from "./card.js";
+import Card, { addCard } from "./Card.js";
 import {
-  PopupWithForm,
+  PopupWithForm, PopupWithImage,
   renderButtonText,
   textButtonSaveLoading,
   textButtonSaveNoLoading,
@@ -74,8 +72,18 @@ const submitAddCardForm = (evt) => {
     name: inputCardTitle.value,
     link: inputCardLink.value
   })
-    .then((item) => {
-      addCard(createCard(item.name, item.link, item.likes, item.owner._id, item._id, userId));
+    .then(({ _id, name, link, likes, owner }) => {
+      const data = {
+        _id,
+        name,
+        link,
+        likes,
+        userID: userId,
+        creatorID: owner._id,
+      };
+      const card = new Card(data, '#elements-template', () => handleCardClick(link, name)).generate();
+
+      addCard(card);
       popupNewCard.close()
     })
     .catch((err) => console.log(err))
@@ -134,11 +142,31 @@ validatorFormAvatar.enableValidation();
 // Временно!
 
 const ServerCard = new Section({
-  renderer: (item) => {
-    ServerCard.addItem(createCard(item.name, item.link, item.likes, item.owner._id, item._id, userId));
+  renderer: ({ _id, name, link, likes, owner }) => {
+    const data = {
+      _id,
+      name,
+      link,
+      likes,
+      userID: userId,
+      creatorID: owner._id,
+    };
+    const card = new Card(data, '#elements-template', () => handleCardClick(link, name)).generate();
+
+    ServerCard.addItem(card);
   }
 }, '.elements__wrapper');
 
+function handleCardClick(link, name) {
+  const popupImg = new PopupWithImage({
+    src: link,
+    alt: `фотография ${name}`,
+    caption: name
+  }, '.popup_type_img')
+
+  popupImg.setEventListeners();
+  popupImg.open();
+}
 
 Promise.all([api.apiUser(), api.apiCards()])
   .then(([userInfo, cards]) => {
