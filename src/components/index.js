@@ -17,7 +17,7 @@ import {
 import { apiConfig } from './utils/apiConfig';
 // Импорт классов
 import { FormValidator } from './FormValidator.js';
-import { Api } from "./api";
+import { Api } from "./Api";
 import { Section } from './Section.js';
 import { UserInfo } from './UserInfo';
 

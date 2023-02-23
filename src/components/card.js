@@ -1,5 +1,5 @@
 import {PopupWithImage} from "./Popup.js";
-import {Api} from "./api";
+import {Api} from "./Api";
 import {apiConfig} from "./utils/apiConfig";
 
 // место добавления новых карточек
