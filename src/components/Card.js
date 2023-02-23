@@ -1,4 +1,4 @@
-import {Api} from "./Api";
+import {Api} from "./api";
 import {apiConfig} from "./utils/apiConfig";
 
 // место добавления новых карточек
