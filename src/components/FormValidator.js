@@ -1,22 +1,27 @@
 export class FormValidator {
-  constructor(parameter, form) {
-    this._parameter = parameter;
+  constructor({ inputErrorClass, errorClass, submitButtonInactive, inputSelector, submitButtonSelector }, form) 
+  {
+    this._submitButtonSelector = submitButtonSelector
+    this._inputSelector = inputSelector;
+    this._submitButtonInactive = submitButtonInactive;
+    this._inputErrorClass = inputErrorClass;
+    this._errorClass = errorClass;
     this._form = form;
   }
 
   // Приватный метод показа ошибки при валидации
   _showInputError(inputElement) {
     const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add(this._parameter.inputErrorClass);
-    errorElement.classList.add(this._parameter.errorClass);
+    inputElement.classList.add(this._inputErrorClass);
+    errorElement.classList.add(this._errorClass);
     errorElement.textContent = inputElement.validationMessage;
   }
 
   // Приватный метод скрытия ошибки
   _hideInputError(inputElement) {
     const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove(this._parameter.inputErrorClass);
-    errorElement.classList.remove(this._parameter.errorClass);
+    inputElement.classList.remove(this._inputErrorClass);
+    errorElement.classList.remove(this._errorClass);
     errorElement.textContent = '';
   }
 
@@ -43,17 +48,17 @@ export class FormValidator {
   _toggleButtonState(inputList, buttonElement) {
     if (this._hasInvalidInput(inputList)) {
       buttonElement.disabled = true;
-      buttonElement.classList.add(this._parameter.submitButtonInactive);
+      buttonElement.classList.add(this._submitButtonInactive);
     } else {
       buttonElement.disabled = false;
-      buttonElement.classList.remove(this._parameter.submitButtonInactive);
+      buttonElement.classList.remove(this._submitButtonInactive);
     }
   }
 
   // Приватный метод вешает слушатель инпут всем полям, с активной проверкой ввода данных и переключением сосотояния кнопки 
   _setEventListeners() {
-    const inputList = Array.from(this._form.querySelectorAll(this._parameter.inputSelector));
-    const buttonElement = this._form.querySelector(this._parameter.submitButtonSelector);
+    const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
+    const buttonElement = this._form.querySelector(this._submitButtonSelector);
     inputList.forEach(inputElement => {
       inputElement.addEventListener('input', () => {
         this._isValid(inputElement);
@@ -64,8 +69,8 @@ export class FormValidator {
 
   // Метод для провеки валидности полей, скрытием ошибки и переключением состояния кнопки до ввода данных в поле 
   validationStaticInput() {
-    const inputList = Array.from(this._form.querySelectorAll(this._parameter.inputSelector));
-    const buttonElement = this._form.querySelector(this._parameter.submitButtonSelector);
+    const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
+    const buttonElement = this._form.querySelector(this._submitButtonSelector);
     inputList.forEach(inputElement => {
       this._isValid(inputElement);
       this._hideInputError(inputElement);

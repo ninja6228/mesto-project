@@ -35,7 +35,6 @@ const buttonSaveAvatar = popupAvatar.querySelector('.popup__button');
 
 // параметры валидации 
 const validationParameters = {
-  formSelector: '.form',
   inputSelector: '.popup__line',
   submitButtonSelector: '.popup__button',
   inputErrorClass: 'popup__line_type_error',
