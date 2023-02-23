@@ -45,7 +45,7 @@ class Card {
       this._deleteCard(card)
     })
 
-    card.addEventListener('click', this._handleCardClick)
+    card.querySelector('.elements__img').addEventListener('click', this._handleCardClick)
   }
 
   _processLike(card) {
