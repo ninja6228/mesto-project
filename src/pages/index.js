@@ -28,7 +28,7 @@ import {
 } from "../components/Popup.js";
 import { apiConfig } from '../components/utils/apiConfig';
 // Импорт классов
-import { FormValidator } from '../components/FormValidator.js';
+import  FormValidator  from '../components/FormValidator.js';
 import { Api } from "../components/Api";
 import { Section } from '../components/Section.js';
 import { UserInfo } from '../components/UserInfo';
@@ -120,19 +120,19 @@ profileButtonEdit.addEventListener('click', () => {
   const { userName, userDescription } = user.getUserInfo();
   nameInput.value = userName;
   jobInput.value = userDescription;
-  validatorFormUser.validationStaticInput();
+  validatorFormUser.resetValidation();
   popupUser.open();
 });
 
 // Октрытие модального окна Element с проверкой валидации
 profileButtonCreate.addEventListener('click', () => {
-  validatorFormAddCard.validationStaticInput();
+  validatorFormAddCard.resetValidation();
   popupNewCard.open();
 });
 
 // Открытие модального окна Avatar с проверкой валидации
 avatarButtonEdit.addEventListener('click', () => {
-  validatorFormAvatar.validationStaticInput();
+  validatorFormAvatar.resetValidation();
   popupAvatar.open()
 });
 

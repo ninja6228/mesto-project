@@ -1,4 +1,4 @@
-export class FormValidator {
+export default class FormValidator {
   constructor({ inputErrorClass, errorClass, submitButtonInactive, inputSelector, submitButtonSelector }, form) 
   {
     this._submitButtonSelector = submitButtonSelector
@@ -7,6 +7,8 @@ export class FormValidator {
     this._inputErrorClass = inputErrorClass;
     this._errorClass = errorClass;
     this._form = form;
+    this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
+    this._submitButton = this._form.querySelector(this._submitButtonSelector);
   }
 
   // Приватный метод показа ошибки при валидации
@@ -26,7 +28,7 @@ export class FormValidator {
   }
 
   // Приватный метод 1-проверяет патрен, 2-проверяет валидность поля
-  _isValid(inputElement) {
+  _checkInputValidity(inputElement) {
     if (inputElement.validity.patternMismatch) {
       inputElement.setCustomValidity(inputElement.dataset.textErrorPattern);
     } else {
@@ -40,41 +42,36 @@ export class FormValidator {
   }
 
   // Приватный метод проверки валидности полей
-  _hasInvalidInput(inputList) {
-    return inputList.some(inputElement => !inputElement.validity.valid);
+  _hasInvalidInput() {
+    return this._inputList.some(inputElement => !inputElement.validity.valid);
   }
 
   // Приватный метод переключатель состояния кнопки
-  _toggleButtonState(inputList, buttonElement) {
-    if (this._hasInvalidInput(inputList)) {
-      buttonElement.disabled = true;
-      buttonElement.classList.add(this._submitButtonInactive);
+  _toggleButtonState() {
+    if (this._hasInvalidInput(this._inputList)) {
+      this._submitButton.disabled = true;
+      this._submitButton.classList.add(this._submitButtonInactive);
     } else {
-      buttonElement.disabled = false;
-      buttonElement.classList.remove(this._submitButtonInactive);
+      this._submitButton.disabled = false;
+      this._submitButton.classList.remove(this._submitButtonInactive);
     }
   }
 
   // Приватный метод вешает слушатель инпут всем полям, с активной проверкой ввода данных и переключением сосотояния кнопки 
   _setEventListeners() {
-    const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
-    const buttonElement = this._form.querySelector(this._submitButtonSelector);
-    inputList.forEach(inputElement => {
+    this._inputList.forEach(inputElement => {
       inputElement.addEventListener('input', () => {
-        this._isValid(inputElement);
-        this._toggleButtonState(inputList, buttonElement);
+        this._checkInputValidity(inputElement);
+        this._toggleButtonState();
       });
     });
   }
 
   // Метод для провеки валидности полей, скрытием ошибки и переключением состояния кнопки до ввода данных в поле 
-  validationStaticInput() {
-    const inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
-    const buttonElement = this._form.querySelector(this._submitButtonSelector);
-    inputList.forEach(inputElement => {
-      this._isValid(inputElement);
+  resetValidation() {
+    this._inputList.forEach(inputElement => {
       this._hideInputError(inputElement);
-      this._toggleButtonState(inputList, buttonElement);
+      this._toggleButtonState();
     });
   }
 
