@@ -25,7 +25,9 @@
 Функционал полностью переведен на ООП 
  
 
-Выполнялся совместно с [Dmitrii Kushnerev](https://github.com/w0lrid)
+Выполнялся совместно с [Dmitrii Kushnerev](https://github.com/w0lrid)  
+GitHub: https://github.com/w0lrid  
+Mail: mactepdzen@yandex.ru
 
 
 ## Ссылка на проект
