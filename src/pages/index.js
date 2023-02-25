@@ -30,7 +30,7 @@ import { apiConfig } from '../components/utils/apiConfig';
 // Импорт классов
 import  FormValidator  from '../components/FormValidator.js';
 import { Api } from "../components/Api";
-import { Section } from '../components/Section.js';
+import  Section  from '../components/Section.js';
 import { UserInfo } from '../components/UserInfo';
 
 // переменная для храннения ID пользователя
