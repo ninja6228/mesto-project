@@ -31,7 +31,7 @@ import { apiConfig } from '../components/utils/apiConfig';
 import  FormValidator  from '../components/FormValidator.js';
 import { Api } from "../components/Api";
 import  Section  from '../components/Section.js';
-import { UserInfo } from '../components/UserInfo';
+import  UserInfo  from '../components/UserInfo';
 
 // переменная для храннения ID пользователя
 let userId;
