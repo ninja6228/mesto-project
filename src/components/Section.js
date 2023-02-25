@@ -1,7 +1,7 @@
 export class Section {
-  constructor({ renderer }, selector) {
+  constructor({ renderer }, container) {
     this._renderer = renderer;
-    this._selector = document.querySelector(selector);
+    this._container = document.querySelector(container);
   }
   // Метод перебора всех элементов
   rendererItem(items) {
@@ -9,6 +9,6 @@ export class Section {
   }
   // Метод добавление элемента в DOM
   addItem(item) {
-    this._selector.prepend(item);
+    this._container.prepend(item);
   }
 }
