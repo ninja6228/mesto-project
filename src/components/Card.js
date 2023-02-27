@@ -6,11 +6,6 @@ const elementsSection = document.querySelector('.elements__wrapper');
 
 const api = new Api(apiConfig);
 
-// функция добавления карточки в DOM
-export const addCard = (card) => {
-  elementsSection.prepend(card);
-};
-
 class Card {
   constructor({ _id, name, link, likes, userID, creatorID }, templateSelector, handleCardClick) {
     this._id = _id;

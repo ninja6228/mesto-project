@@ -16,7 +16,7 @@ import {
   buttonSaveCard,
   buttonSaveAvatar
 } from "../components/utils/constants.js";
-import Card, { addCard } from "../components/Card.js";
+import Card from "../components/Card.js";
 import {
   PopupWithForm,
   PopupWithImage,
@@ -97,7 +97,7 @@ const submitAddCardForm = (evt) => {
       };
       const card = new Card(data, '#elements-template', () => handleCardClick(link, name)).generate();
 
-      addCard(card);
+      ServerCard.addItem(card)
       popupNewCard.close()
     })
     .catch((err) => console.log(err))
