@@ -1,4 +1,4 @@
-class Card {
+export default class Card {
   constructor({ _id, name, link, likes, userID, creatorID }, templateSelector, handleCardClick, deleteCardRequest, likeCard, dislikeCard) {
     this._id = _id;
     this._name = name;
@@ -98,7 +98,6 @@ class Card {
   }
 }
 
-export default Card;
 
 
 

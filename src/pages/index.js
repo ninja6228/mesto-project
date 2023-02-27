@@ -15,8 +15,7 @@ import {
   profileButtonCreate,
   profileButtonEdit,
   validationParameters
-} from "../components/utils/constants.js";
-import Card from "../components/Card.js";
+} from "../utils/constants.js";
 import {
   PopupWithForm,
   PopupWithImage,
@@ -26,12 +25,13 @@ import {
   textButtonСreatLoading,
   textButtonСreatNoLoading
 } from "../components/Popup.js";
-import { apiConfig } from '../components/utils/apiConfig';
+import { apiConfig } from '../utils/apiConfig';
 // Импорт классов
 import FormValidator from '../components/FormValidator.js';
-import { Api } from "../components/Api";
+import Api  from "../components/Api";
 import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo';
+import Card from "../components/Card.js";
 
 // переменная для храннения ID пользователя
 let userId;
@@ -87,7 +87,7 @@ const submitAddCardForm = (evt) => {
     link: inputCardLink.value
   })
     .then(({ _id, name, link, likes, owner }) => {
-      ServerCard.addItem(handleCardCreation(_id, name, link, likes, userId, owner._id))
+      cardSection.addItem(handleCardCreation(_id, name, link, likes, userId, owner._id))
       popupNewCard.close()
     })
     .catch((err) => console.log(err))
@@ -138,9 +138,9 @@ validatorFormAddCard.enableValidation();
 const validatorFormAvatar = new FormValidator(validationParameters, formAvatar);
 validatorFormAvatar.enableValidation();
 
-const ServerCard = new Section({
+const cardSection = new Section({
   renderer: ({ _id, name, link, likes, owner }) => {
-    ServerCard.addItem(handleCardCreation(_id, name, link, likes, userId, owner._id));
+    cardSection.addItem(handleCardCreation(_id, name, link, likes, userId, owner._id));
   }
 }, '.elements__wrapper');
 
@@ -176,7 +176,8 @@ Promise.all([api.apiUser(), api.apiCards()])
     userId = userInfo._id;
     user.setUserInfo(userInfo);
     user.setUserAvatar(userInfo);
-    ServerCard.rendererItem(cards.reverse());
-  });
+    cardSection.rendererItem(cards.reverse());
+  })
+  .catch((err) => console.log(err));
 
 
