@@ -1,9 +1,6 @@
 import {Api} from "./Api";
 import {apiConfig} from "./utils/apiConfig";
 
-// место добавления новых карточек
-const elementsSection = document.querySelector('.elements__wrapper');
-
 const api = new Api(apiConfig);
 
 class Card {
@@ -28,73 +25,78 @@ class Card {
     return cardElement;
   }
 
-  _setEventListeners(card) {
-    this._buttonLike = card.querySelector('.elements__button');
-    this._buttonDelete = card.querySelector('.elements__delete');
-
+  _setEventListeners() {
     this._buttonLike.addEventListener('click', () => {
-      this._processLike(card);
-    })
+      this._processLike();
+    });
 
     this._buttonDelete?.addEventListener('click', () => {
-      this._deleteCard(card)
-    })
+      this._deleteCard();
+    });
 
-    card.querySelector('.elements__img').addEventListener('click', this._handleCardClick)
+    this._img.addEventListener('click', this._handleCardClick);
   }
 
-  _processLike(card) {
-    this._buttonLike = card.querySelector('.elements__button');
-
+  _processLike() {
     if (this._buttonLike.classList.contains('elements__button_active')) {
-      api.deleteLikeApi(this._id).then(({ likes }) => {
-        this._buttonLike.classList.remove('elements__button_active');
-        card.querySelector('.elements__counter-like').textContent = likes.length;
-      })
+      api.deleteLikeApi(this._id)
+        .then(({ likes }) => {
+          this._buttonLike.classList.remove('elements__button_active');
+          this._likesCounter.textContent = likes.length;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
     } else {
-      api.addLikeApi(this._id).then(({ likes }) => {
-        this._buttonLike.classList.add('elements__button_active');
-        card.querySelector('.elements__counter-like').textContent = likes.length;
-      });
+      api.addLikeApi(this._id)
+        .then(({ likes }) => {
+          this._buttonLike.classList.add('elements__button_active');
+          this._likesCounter.textContent = likes.length;
+        })
+        .catch((err) => {
+          console.log(err);
+        })
     }
   }
 
-  _deleteCard(card) {
+  _deleteCard() {
     api.deleteCardApi(this._id)
-      .then(() => card.remove())
+      .then(() => this._card.remove())
       .catch((err) => console.log(err));
   }
 
-  _checkLike(card) {
+  _checkLike() {
     this._likes.forEach(element => {
       if (element._id === this._userID) {
-        card.querySelector('.elements__button').classList.add('elements__button_active');
+        this._buttonLike.classList.add('elements__button_active');
       }
     });
   }
 
-  _checkDelete(card) {
+  _checkDelete() {
     if (this._creatorID !== this._userID) {
-      card.querySelector('.elements__delete').remove();
+      this._buttonDelete.remove();
     }
   }
 
   generate() {
-    const card = this._getElement();
-    const img = card.querySelector('.elements__img');
+    this._card = this._getElement();
 
-    card.querySelector('.elements__text').textContent = this._name;
-    img.src = this._link;
-    img.alt = `фотография ${this._name}`;
-    card.querySelector('.elements__counter-like').textContent = this._likes.length;
+    this._buttonLike = this._card.querySelector('.elements__button');
+    this._buttonDelete = this._card.querySelector('.elements__delete');
+    this._likesCounter = this._card.querySelector('.elements__counter-like');
+    this._likesCounter.textContent = this._likes.length;
+    this._img = this._card.querySelector('.elements__img');
+    this._img.src = this._link;
+    this._img.alt = `Фотография ${this._name}`;
+    this._cardTitle = this._card.querySelector('.elements__text');
+    this._cardTitle.textContent = this._name;
 
+    this._checkDelete();
+    this._checkLike();
+    this._setEventListeners();
 
-    this._checkDelete(card);
-    this._checkLike(card);
-
-    this._setEventListeners(card);
-
-    return card;
+    return this._card;
   }
 }
 
