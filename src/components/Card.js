@@ -1,10 +1,5 @@
-import {Api} from "./Api";
-import {apiConfig} from "./utils/apiConfig";
-
-const api = new Api(apiConfig);
-
 class Card {
-  constructor({ _id, name, link, likes, userID, creatorID }, templateSelector, handleCardClick) {
+  constructor({ _id, name, link, likes, userID, creatorID }, templateSelector, handleCardClick, deleteCardRequest, likeCard, dislikeCard) {
     this._id = _id;
     this._name = name;
     this._link = link;
@@ -13,6 +8,9 @@ class Card {
     this._creatorID = creatorID;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._deleteCardRequest = deleteCardRequest;
+    this._likeCard = likeCard;
+    this._dislikeCard = dislikeCard;
   }
 
   _getElement() {
@@ -39,7 +37,7 @@ class Card {
 
   _processLike() {
     if (this._buttonLike.classList.contains('elements__button_active')) {
-      api.deleteLikeApi(this._id)
+      this._dislikeCard()
         .then(({ likes }) => {
           this._buttonLike.classList.remove('elements__button_active');
           this._likesCounter.textContent = likes.length;
@@ -48,7 +46,7 @@ class Card {
           console.log(err);
         })
     } else {
-      api.addLikeApi(this._id)
+      this._likeCard()
         .then(({ likes }) => {
           this._buttonLike.classList.add('elements__button_active');
           this._likesCounter.textContent = likes.length;
@@ -60,7 +58,7 @@ class Card {
   }
 
   _deleteCard() {
-    api.deleteCardApi(this._id)
+    this._deleteCardRequest()
       .then(() => this._card.remove())
       .catch((err) => console.log(err));
   }

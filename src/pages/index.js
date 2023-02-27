@@ -1,20 +1,20 @@
 import './index.css';
 import {
-  formUser,
-  nameInput,
-  jobInput,
-  formAddCard,
-  inputCardTitle,
-  inputCardLink,
-  profileButtonEdit,
-  profileButtonCreate,
-  validationParameters,
   avatarButtonEdit,
-  formAvatar,
-  popupLineAvatar,
-  buttonSaveUser,
+  buttonSaveAvatar,
   buttonSaveCard,
-  buttonSaveAvatar
+  buttonSaveUser,
+  formAddCard,
+  formAvatar,
+  formUser,
+  inputCardLink,
+  inputCardTitle,
+  jobInput,
+  nameInput,
+  popupLineAvatar,
+  profileButtonCreate,
+  profileButtonEdit,
+  validationParameters
 } from "../components/utils/constants.js";
 import Card from "../components/Card.js";
 import {
@@ -28,10 +28,10 @@ import {
 } from "../components/Popup.js";
 import { apiConfig } from '../components/utils/apiConfig';
 // Импорт классов
-import  FormValidator  from '../components/FormValidator.js';
+import FormValidator from '../components/FormValidator.js';
 import { Api } from "../components/Api";
-import  Section  from '../components/Section.js';
-import  UserInfo  from '../components/UserInfo';
+import Section from '../components/Section.js';
+import UserInfo from '../components/UserInfo';
 
 // переменная для храннения ID пользователя
 let userId;
@@ -87,17 +87,7 @@ const submitAddCardForm = (evt) => {
     link: inputCardLink.value
   })
     .then(({ _id, name, link, likes, owner }) => {
-      const data = {
-        _id,
-        name,
-        link,
-        likes,
-        userID: userId,
-        creatorID: owner._id,
-      };
-      const card = new Card(data, '#elements-template', () => handleCardClick(link, name)).generate();
-
-      ServerCard.addItem(card)
+      ServerCard.addItem(handleCardCreation(_id, name, link, likes, userId, owner._id))
       popupNewCard.close()
     })
     .catch((err) => console.log(err))
@@ -150,17 +140,7 @@ validatorFormAvatar.enableValidation();
 
 const ServerCard = new Section({
   renderer: ({ _id, name, link, likes, owner }) => {
-    const data = {
-      _id,
-      name,
-      link,
-      likes,
-      userID: userId,
-      creatorID: owner._id,
-    };
-    const card = new Card(data, '#elements-template', () => handleCardClick(link, name)).generate();
-
-    ServerCard.addItem(card);
+    ServerCard.addItem(handleCardCreation(_id, name, link, likes, userId, owner._id));
   }
 }, '.elements__wrapper');
 
@@ -173,6 +153,22 @@ function handleCardClick(link, name) {
 
   popupImg.setEventListeners();
   popupImg.open();
+}
+function handleCardCreation(_id, name, link, likes, userID, creatorID) {
+  const data = {
+    _id,
+    name,
+    link,
+    likes,
+    userID,
+    creatorID,
+  };
+
+  const deleteCard = () => api.deleteCardApi(_id);
+  const likeCard = () => api.addLikeApi(_id);
+  const dislikeCard = () => api.deleteLikeApi(_id);
+
+  return new Card(data, '#elements-template', () => handleCardClick(link, name), deleteCard, likeCard, dislikeCard).generate();
 }
 
 Promise.all([api.apiUser(), api.apiCards()])
