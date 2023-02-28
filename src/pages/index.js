@@ -69,7 +69,7 @@ const submitAvatarForm = (evt) => {
   renderButtonText(buttonSaveAvatar, textButtonСreatLoading);
   api.setUserAvatar(popupLineAvatar.value)
     .then((items) => {
-      user.setUserAvatar(items);
+      user.setUserInfo(items);
       popupAvatar.close();
     })
     .catch((err) => console.log(err))
@@ -175,7 +175,6 @@ Promise.all([api.apiUser(), api.apiCards()])
   .then(([userInfo, cards]) => {
     userId = userInfo._id;
     user.setUserInfo(userInfo);
-    user.setUserAvatar(userInfo);
     cardSection.rendererItem(cards.reverse());
   })
   .catch((err) => console.log(err));
