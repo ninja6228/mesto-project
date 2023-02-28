@@ -30,13 +30,10 @@ const user = new UserInfo({
 });
 
 // функция изменения имени и дейтельности через попап
-const submitEditProfileForm = (evt) => {
+const submitEditProfileForm = (evt, data) => {
   evt.preventDefault();
   popupUser.renderLoading(true, 'Сохранение...');
-  api.setUserInfo({
-    name: nameInput.value,
-    about: jobInput.value
-  })
+  api.setUserInfo(data)
     .then((items) => {
       user.setUserInfo(items);
       popupUser.close();
@@ -48,10 +45,10 @@ const submitEditProfileForm = (evt) => {
 };
 
 // функция изменения аватарки через модальное окно
-const submitAvatarForm = (evt) => {
+const submitAvatarForm = (evt, data) => {
   evt.preventDefault();
   popupAvatar.renderLoading(true)
-  api.setUserAvatar(popupLineAvatar.value)
+  api.setUserAvatar(data)
     .then((items) => {
       user.setUserInfo(items);
       popupAvatar.close();
@@ -63,13 +60,10 @@ const submitAvatarForm = (evt) => {
 };
 
 //функция добавления новой карточки на страницу через модальное окно 
-const submitAddCardForm = (evt) => {
+const submitAddCardForm = (evt, data) => {
   evt.preventDefault();
   popupNewCard.renderLoading(true)
-  api.setAddNewCard({
-    name: inputCardTitle.value,
-    link: inputCardLink.value
-  })
+  api.setAddNewCard(data)
     .then(({ _id, name, link, likes, owner }) => {
       cardSection.addItem(handleCardCreation(_id, name, link, likes, userId, owner._id))
       popupNewCard.close()
@@ -80,13 +74,13 @@ const submitAddCardForm = (evt) => {
     });
 };
 
-const popupUser = new PopupWithForm((evt) => submitEditProfileForm(evt), '.popup_type_user');
+const popupUser = new PopupWithForm(submitEditProfileForm, '.popup_type_user');
 popupUser.setEventListeners();
 
-const popupNewCard = new PopupWithForm((evt) => submitAddCardForm(evt), '.popup_type_element');
+const popupNewCard = new PopupWithForm(submitAddCardForm, '.popup_type_element');
 popupNewCard.setEventListeners();
 
-const popupAvatar = new PopupWithForm((evt) => submitAvatarForm(evt), '.popup_type_avatar');
+const popupAvatar = new PopupWithForm(submitAvatarForm, '.popup_type_avatar');
 popupAvatar.setEventListeners();
 
 const popupImg = new PopupWithImage('.popup_type_img');

@@ -37,25 +37,22 @@ export default class Api {
   }
 
   // Метод передачи новой аватарки на сервер
-  setUserAvatar(urlAvatar) {
+  setUserAvatar({ link }) {
     return this._request(`${this._link}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: urlAvatar
+        avatar: link
       })
     })
   }
 
   // Метод публикации новой карточки на сервер 
-  setAddNewCard(cardData) {
+  setAddNewCard({ name, link }) {
     return this._request(`${this._link}/cards`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify({
-        name: cardData.name,
-        link: cardData.link
-      })
+      body: JSON.stringify({ name, link })
     })
   }
 

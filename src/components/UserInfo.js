@@ -8,7 +8,7 @@ export default class UserInfo {
   getUserInfo() {
     return {
       name: this._userName.textContent,
-      info: this._userDescription.textContent
+      about: this._userDescription.textContent
     };
   }
   // Метод который принимает новые данные пользователя
