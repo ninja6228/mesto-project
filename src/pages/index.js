@@ -89,6 +89,9 @@ popupNewCard.setEventListeners();
 const popupAvatar = new PopupWithForm((evt) => submitAvatarForm(evt), '.popup_type_avatar');
 popupAvatar.setEventListeners();
 
+const popupImg = new PopupWithImage('.popup_type_img');
+popupImg.setEventListeners();
+
 // Октрытие модального окна User с проверкой валидации
 profileButtonEdit.addEventListener('click', () => {
   popupUser.setInputValues(user.getUserInfo());
@@ -130,9 +133,6 @@ const cardSection = new Section({
 }, '.elements__wrapper');
 
 function handleCardClick(link, name) {
-  const popupImg = new PopupWithImage('.popup_type_img')
-
-  popupImg.setEventListeners();
   popupImg.open({
     src: link,
     alt: `Фотография ${name}`,
