@@ -110,33 +110,36 @@ profileButtonEdit.addEventListener('click', () => {
   const { userName, userDescription } = user.getUserInfo();
   nameInput.value = userName;
   jobInput.value = userDescription;
-  validatorFormUser.resetValidation();
+  formValidators["info-user"].resetValidation()
   popupUser.open();
 });
 
 // Октрытие модального окна Element с проверкой валидации
 profileButtonCreate.addEventListener('click', () => {
-  validatorFormAddCard.resetValidation();
+  formValidators["info-element"].resetValidation()
   popupNewCard.open();
 });
 
 // Открытие модального окна Avatar с проверкой валидации
 avatarButtonEdit.addEventListener('click', () => {
-  validatorFormAvatar.resetValidation();
+  formValidators["info-avatar"].resetValidation()
   popupAvatar.open()
 });
 
-//включение валидации для формы user
-const validatorFormUser = new FormValidator(validationParameters, formUser);
-validatorFormUser.enableValidation();
-
-//включение валидации для формы Element
-const validatorFormAddCard = new FormValidator(validationParameters, formAddCard);
-validatorFormAddCard.enableValidation();
-
-//включение валидации для формы Avatar
-const validatorFormAvatar = new FormValidator(validationParameters, formAvatar);
-validatorFormAvatar.enableValidation();
+// Валидация форм
+const formValidators = {}
+// Функция для включение валидации
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement)
+    const formName = formElement.getAttribute('name')
+    formValidators[formName] = validator;
+   validator.enableValidation();
+  });
+};
+// Включение валидации
+enableValidation(validationParameters);
 
 const cardSection = new Section({
   renderer: ({ _id, name, link, likes, owner }) => {
