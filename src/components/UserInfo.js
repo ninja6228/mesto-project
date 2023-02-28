@@ -12,13 +12,11 @@ export default class UserInfo {
     };
   }
   // Метод который принимает новые данные пользователя
-  setUserInfo({ name, about }) {
+  setUserInfo({ name, about, avatar, _id }) {
     this._userName.textContent = name;
     this._userDescription.textContent = about;
-  }
-  // Метод для изменения аватарки 
-  setUserAvatar({ avatar }) {
     this._userAvatar.src = avatar;
+    this._id = _id;
   }
 }
 

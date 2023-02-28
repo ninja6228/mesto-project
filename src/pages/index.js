@@ -1,12 +1,6 @@
 import './index.css';
 import {
   avatarButtonEdit,
-  buttonSaveAvatar,
-  buttonSaveCard,
-  buttonSaveUser,
-  formAddCard,
-  formAvatar,
-  formUser,
   inputCardLink,
   inputCardTitle,
   jobInput,
@@ -16,12 +10,11 @@ import {
   profileButtonEdit,
   validationParameters,
 } from "../utils/constants.js";
+import Api  from "../components/Api";
+import { apiConfig } from '../utils/apiConfig';
 import PopupWithForm from "../components/popup/PopupWithForm";
 import PopupWithImage from "../components/popup/PopupWithImage"
-import { apiConfig } from '../utils/apiConfig';
-// Импорт классов
 import FormValidator from '../components/FormValidator.js';
-import Api  from "../components/Api";
 import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo';
 import Card from "../components/Card.js";
@@ -60,7 +53,7 @@ const submitAvatarForm = (evt) => {
   popupAvatar.renderLoading(true)
   api.setUserAvatar(popupLineAvatar.value)
     .then((items) => {
-      user.setUserAvatar(items);
+      user.setUserInfo(items);
       popupAvatar.close();
     })
     .catch((err) => console.log(err))
@@ -99,33 +92,36 @@ popupAvatar.setEventListeners();
 // Октрытие модального окна User с проверкой валидации
 profileButtonEdit.addEventListener('click', () => {
   popupUser.setInputValues(user.getUserInfo());
-  validatorFormUser.resetValidation();
+  formValidators["info-user"].resetValidation()
   popupUser.open();
 });
 
 // Октрытие модального окна Element с проверкой валидации
 profileButtonCreate.addEventListener('click', () => {
-  validatorFormAddCard.resetValidation();
+  formValidators["info-element"].resetValidation()
   popupNewCard.open();
 });
 
 // Открытие модального окна Avatar с проверкой валидации
 avatarButtonEdit.addEventListener('click', () => {
-  validatorFormAvatar.resetValidation();
+  formValidators["info-avatar"].resetValidation()
   popupAvatar.open()
 });
 
-//включение валидации для формы user
-const validatorFormUser = new FormValidator(validationParameters, formUser);
-validatorFormUser.enableValidation();
-
-//включение валидации для формы Element
-const validatorFormAddCard = new FormValidator(validationParameters, formAddCard);
-validatorFormAddCard.enableValidation();
-
-//включение валидации для формы Avatar
-const validatorFormAvatar = new FormValidator(validationParameters, formAvatar);
-validatorFormAvatar.enableValidation();
+// Валидация форм
+const formValidators = {}
+// Функция для включение валидации
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement)
+    const formName = formElement.getAttribute('name')
+    formValidators[formName] = validator;
+   validator.enableValidation();
+  });
+};
+// Включение валидации
+enableValidation(validationParameters);
 
 const cardSection = new Section({
   renderer: ({ _id, name, link, likes, owner }) => {
@@ -164,7 +160,6 @@ Promise.all([api.apiUser(), api.apiCards()])
   .then(([userInfo, cards]) => {
     userId = userInfo._id;
     user.setUserInfo(userInfo);
-    user.setUserAvatar(userInfo);
     cardSection.rendererItem(cards.reverse());
   })
   .catch((err) => console.log(err));
