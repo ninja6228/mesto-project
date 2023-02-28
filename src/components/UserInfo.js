@@ -7,8 +7,8 @@ export default class UserInfo {
   // Метод который возвращает объект с данными пользователя
   getUserInfo() {
     return {
-      userName: this._userName.textContent,
-      userDescription: this._userDescription.textContent
+      name: this._userName.textContent,
+      info: this._userDescription.textContent
     };
   }
   // Метод который принимает новые данные пользователя

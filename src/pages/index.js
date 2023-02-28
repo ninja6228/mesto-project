@@ -14,17 +14,10 @@ import {
   popupLineAvatar,
   profileButtonCreate,
   profileButtonEdit,
-  validationParameters
+  validationParameters,
 } from "../utils/constants.js";
-import {
-  PopupWithForm,
-  PopupWithImage,
-  renderButtonText,
-  textButtonSaveLoading,
-  textButtonSaveNoLoading,
-  textButtonСreatLoading,
-  textButtonСreatNoLoading
-} from "../components/Popup.js";
+import PopupWithForm from "../components/popup/PopupWithForm";
+import PopupWithImage from "../components/popup/PopupWithImage"
 import { apiConfig } from '../utils/apiConfig';
 // Импорт классов
 import FormValidator from '../components/FormValidator.js';
@@ -37,18 +30,16 @@ import Card from "../components/Card.js";
 let userId;
 
 const api = new Api(apiConfig);
-
 const user = new UserInfo({
   name: '.profile__name',
   description: '.profile__activity',
   avatar: '.profile__avatar'
 });
 
-
 // функция изменения имени и дейтельности через попап
 const submitEditProfileForm = (evt) => {
   evt.preventDefault();
-  renderButtonText(buttonSaveUser, textButtonSaveLoading);
+  popupUser.renderLoading(true, 'Сохранение...');
   api.setUserInfo({
     name: nameInput.value,
     about: jobInput.value
@@ -59,14 +50,14 @@ const submitEditProfileForm = (evt) => {
     })
     .catch((err) => console.log(err))
     .finally(() => {
-      renderButtonText(buttonSaveUser, textButtonSaveNoLoading);
+      popupUser.renderLoading(false, 'Сохранить');
     });
 };
 
 // функция изменения аватарки через модальное окно
 const submitAvatarForm = (evt) => {
   evt.preventDefault();
-  renderButtonText(buttonSaveAvatar, textButtonСreatLoading);
+  popupAvatar.renderLoading(true)
   api.setUserAvatar(popupLineAvatar.value)
     .then((items) => {
       user.setUserAvatar(items);
@@ -74,14 +65,14 @@ const submitAvatarForm = (evt) => {
     })
     .catch((err) => console.log(err))
     .finally(() => {
-      renderButtonText(buttonSaveAvatar, textButtonСreatNoLoading);
+      popupAvatar.renderLoading(false, 'Создать');
     });
 };
 
 //функция добавления новой карточки на страницу через модальное окно 
 const submitAddCardForm = (evt) => {
   evt.preventDefault();
-  renderButtonText(buttonSaveCard, textButtonСreatLoading);
+  popupNewCard.renderLoading(true)
   api.setAddNewCard({
     name: inputCardTitle.value,
     link: inputCardLink.value
@@ -92,7 +83,7 @@ const submitAddCardForm = (evt) => {
     })
     .catch((err) => console.log(err))
     .finally(() => {
-      renderButtonText(buttonSaveCard, textButtonСreatNoLoading);
+      popupNewCard.renderLoading(false, 'Создать');
     });
 };
 
@@ -107,9 +98,7 @@ popupAvatar.setEventListeners();
 
 // Октрытие модального окна User с проверкой валидации
 profileButtonEdit.addEventListener('click', () => {
-  const { userName, userDescription } = user.getUserInfo();
-  nameInput.value = userName;
-  jobInput.value = userDescription;
+  popupUser.setInputValues(user.getUserInfo());
   validatorFormUser.resetValidation();
   popupUser.open();
 });
@@ -145,14 +134,14 @@ const cardSection = new Section({
 }, '.elements__wrapper');
 
 function handleCardClick(link, name) {
-  const popupImg = new PopupWithImage({
-    src: link,
-    alt: `фотография ${name}`,
-    caption: name
-  }, '.popup_type_img')
+  const popupImg = new PopupWithImage('.popup_type_img')
 
   popupImg.setEventListeners();
-  popupImg.open();
+  popupImg.open({
+    src: link,
+    alt: `Фотография ${name}`,
+    caption: name
+  });
 }
 function handleCardCreation(_id, name, link, likes, userID, creatorID) {
   const data = {
