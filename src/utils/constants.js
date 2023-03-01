@@ -1,20 +1,8 @@
 export {
-  popups, buttonClose, popupImg, titleImg, pictureImg, popupUser, formUser, nameInput, jobInput, popupElement, formAddCard, inputCardTitle, inputCardLink, profile, nameProfile,
+  popupUser, formUser, nameInput, jobInput, popupElement, formAddCard, inputCardTitle, inputCardLink, profile, nameProfile,
   jobProfile, profileButtonEdit, profileButtonCreate, validationParameters, profileAvatar, avatarButtonEdit, popupAvatar, formAvatar, popupLineAvatar, buttonSaveUser,buttonSaveCard,
   buttonSaveAvatar
 };
-
-//все попапы
-const popups = document.querySelectorAll('.popup');
-
-// все кнопки крестик для закрытие попапов
-const buttonClose = document.querySelectorAll('.popup__toggle');
-
-// попап картинки
-const popupImg = document.querySelector('.popup_type_img');
-const titleImg = popupImg.querySelector('.popup__description');
-const pictureImg = popupImg.querySelector('.popup__img');
-
 
 // попап user
 const popupUser = document.querySelector('.popup_type_user');
