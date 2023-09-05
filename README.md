@@ -1,7 +1,9 @@
 # Проект Mesto
 <img src="./mesto-gif.gif">
 
-[Посмотреть проект](https://ninja6228.github.io/mesto-project/)
+* [Посмотреть проект](https://ninja6228.github.io/mesto-project/)
+
+* [Дизайн проекта.](https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5?type=design&node-id=50160-172&mode=design&t=hj1vXTOVelXbXRaA-0)
 
 ## Описание
 Интерактивный одностраничный сайт на нативном JS с адаптацией под различные виды устройств.  
