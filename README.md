@@ -34,3 +34,9 @@ Mail: mactepdzen@yandex.ru
 
 ## Ссылка на проект
 [Click](https://ninja6228.github.io/mesto-project/)
+
+
+## Запуск проекта
+* Клонировать проект - `git clone https://github.com/ninja6228/mesto-project.git`
+* Устанавливаем зависимости - `npm install`
+* Запускаем проект - `npm run dev`
